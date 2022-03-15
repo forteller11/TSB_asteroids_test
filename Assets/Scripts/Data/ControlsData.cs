@@ -5,9 +5,15 @@ namespace Charly.Data
 {
     public struct ControlsData : IComponentData
     {
-        public float2 Movement;
+        public float Movement;
         public float Turn;
         public StatefulButton Primary;
+
+
+        public override string ToString()
+        {
+            return $"{nameof(Movement)}: {Movement}, {nameof(Turn)}: {Turn}, {nameof(Primary)}: {Primary}";
+        }
     }
 
     public struct StatefulButton

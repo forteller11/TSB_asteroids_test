@@ -28,10 +28,10 @@ public partial class @MainControls : IInputActionCollection2, IDisposable
             ""id"": ""e0263676-c779-4e9f-8768-2bea07a2af9d"",
             ""actions"": [
                 {
-                    ""name"": ""Movement"",
+                    ""name"": ""Thrust"",
                     ""type"": ""Value"",
                     ""id"": ""73dcb886-3aa2-4831-809c-a28572205430"",
-                    ""expectedControlType"": ""Vector2"",
+                    ""expectedControlType"": ""Axis"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
@@ -57,63 +57,8 @@ public partial class @MainControls : IInputActionCollection2, IDisposable
             ],
             ""bindings"": [
                 {
-                    ""name"": ""2D Vector"",
-                    ""id"": ""fa1012e9-c345-44c1-9adf-aa8e8c71a81f"",
-                    ""path"": ""2DVector"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""up"",
-                    ""id"": ""7757d670-448a-4b26-a677-e7642183ee04"",
-                    ""path"": ""<Keyboard>/w"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""down"",
-                    ""id"": ""8c6dcd94-3a59-46b0-9550-0cd126a60054"",
-                    ""path"": ""<Keyboard>/s"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""left"",
-                    ""id"": ""12cfc098-9293-4227-b1bc-a8e32fcbc139"",
-                    ""path"": ""<Keyboard>/a"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""right"",
-                    ""id"": ""4c7bde32-3aa7-4ef2-a97f-1544c85fba7b"",
-                    ""path"": ""<Keyboard>/d"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""1D Axis"",
-                    ""id"": ""9cdf050e-52c1-4923-92ce-8769f655faa6"",
+                    ""name"": ""Left/Right"",
+                    ""id"": ""ef4ab7aa-4837-49d4-a7d9-7bad4016dce3"",
                     ""path"": ""1DAxis"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -124,7 +69,40 @@ public partial class @MainControls : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""negative"",
-                    ""id"": ""27d1375f-0d18-4913-adef-113e4180a321"",
+                    ""id"": ""49c0e8b2-af29-42a9-80a8-38e2155141e2"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Turn"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""b4912d19-6e95-44fb-a938-8f2783e958b5"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Turn"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Q/E"",
+                    ""id"": ""530d577d-5e25-4323-9a10-ca3588400aae"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Turn"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""22387eec-1d66-46ef-ab8f-42cda79994f4"",
                     ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -135,7 +113,7 @@ public partial class @MainControls : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""positive"",
-                    ""id"": ""ae5ddf21-be42-44d6-b3c7-629306f8dbb6"",
+                    ""id"": ""71b9de48-d756-4f47-99f7-041d8469076b"",
                     ""path"": ""<Keyboard>/q"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -154,6 +132,72 @@ public partial class @MainControls : IInputActionCollection2, IDisposable
                     ""action"": ""PrimaryAction"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""W/S"",
+                    ""id"": ""673a160b-9067-477a-9040-861f0d50019c"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Thrust"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""010a5ade-d51f-440b-96d8-1b7cd12ad8a4"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Thrust"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""beead662-de3a-4cb5-b197-3132ebaef938"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Thrust"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Up/Down"",
+                    ""id"": ""18e3cf09-11d0-4de7-83c1-3f98d03fe3f7"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Thrust"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""9301067f-ac07-4275-8e44-4f38f2adeb25"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Thrust"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""7c7be8b7-f8d8-4458-a65b-28d637120b08"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Thrust"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -168,7 +212,7 @@ public partial class @MainControls : IInputActionCollection2, IDisposable
 }");
         // Game
         m_Game = asset.FindActionMap("Game", throwIfNotFound: true);
-        m_Game_Movement = m_Game.FindAction("Movement", throwIfNotFound: true);
+        m_Game_Thrust = m_Game.FindAction("Thrust", throwIfNotFound: true);
         m_Game_Turn = m_Game.FindAction("Turn", throwIfNotFound: true);
         m_Game_PrimaryAction = m_Game.FindAction("PrimaryAction", throwIfNotFound: true);
     }
@@ -230,14 +274,14 @@ public partial class @MainControls : IInputActionCollection2, IDisposable
     // Game
     private readonly InputActionMap m_Game;
     private IGameActions m_GameActionsCallbackInterface;
-    private readonly InputAction m_Game_Movement;
+    private readonly InputAction m_Game_Thrust;
     private readonly InputAction m_Game_Turn;
     private readonly InputAction m_Game_PrimaryAction;
     public struct GameActions
     {
         private @MainControls m_Wrapper;
         public GameActions(@MainControls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Movement => m_Wrapper.m_Game_Movement;
+        public InputAction @Thrust => m_Wrapper.m_Game_Thrust;
         public InputAction @Turn => m_Wrapper.m_Game_Turn;
         public InputAction @PrimaryAction => m_Wrapper.m_Game_PrimaryAction;
         public InputActionMap Get() { return m_Wrapper.m_Game; }
@@ -249,9 +293,9 @@ public partial class @MainControls : IInputActionCollection2, IDisposable
         {
             if (m_Wrapper.m_GameActionsCallbackInterface != null)
             {
-                @Movement.started -= m_Wrapper.m_GameActionsCallbackInterface.OnMovement;
-                @Movement.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnMovement;
-                @Movement.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnMovement;
+                @Thrust.started -= m_Wrapper.m_GameActionsCallbackInterface.OnThrust;
+                @Thrust.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnThrust;
+                @Thrust.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnThrust;
                 @Turn.started -= m_Wrapper.m_GameActionsCallbackInterface.OnTurn;
                 @Turn.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnTurn;
                 @Turn.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnTurn;
@@ -262,9 +306,9 @@ public partial class @MainControls : IInputActionCollection2, IDisposable
             m_Wrapper.m_GameActionsCallbackInterface = instance;
             if (instance != null)
             {
-                @Movement.started += instance.OnMovement;
-                @Movement.performed += instance.OnMovement;
-                @Movement.canceled += instance.OnMovement;
+                @Thrust.started += instance.OnThrust;
+                @Thrust.performed += instance.OnThrust;
+                @Thrust.canceled += instance.OnThrust;
                 @Turn.started += instance.OnTurn;
                 @Turn.performed += instance.OnTurn;
                 @Turn.canceled += instance.OnTurn;
@@ -286,7 +330,7 @@ public partial class @MainControls : IInputActionCollection2, IDisposable
     }
     public interface IGameActions
     {
-        void OnMovement(InputAction.CallbackContext context);
+        void OnThrust(InputAction.CallbackContext context);
         void OnTurn(InputAction.CallbackContext context);
         void OnPrimaryAction(InputAction.CallbackContext context);
     }

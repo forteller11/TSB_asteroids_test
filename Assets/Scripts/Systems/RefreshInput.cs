@@ -43,10 +43,12 @@ namespace Charly.Systems
             //refresh inputs
             if (TryGetSingleton<ControlsData>(out var controls))
             {
-                controls.Movement = _controlsAsset.Game.Movement.ReadValue<Vector2>();
+                controls.Movement = _controlsAsset.Game.Thrust.ReadValue<float>();
                 controls.Turn = _controlsAsset.Game.Turn.ReadValue<float>();
                 bool isDown = _controlsAsset.Game.PrimaryAction.IsPressed();
                 controls.Primary.RefreshWithPreviousState(isDown);
+                
+                SetSingleton(controls);
             }
         }
     }

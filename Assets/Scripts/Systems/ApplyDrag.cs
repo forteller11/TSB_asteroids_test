@@ -13,6 +13,9 @@ namespace Charly.Systems
             //this is asymptotic drag... but is no longer really normalized because of incorporation of deltaTime for frame rate independence
             //the authoring is now fuzzy and risks accidentally creating an inverse drag if the DeltaTime is extreme?
             
+            //todo add mass to calculations
+            //use componentfromentity so that mass can be optional and defaults to 1
+            
             float dt = Time.DeltaTime;
             Entities.ForEach((ref Velocity2D velocity, in PhysicsDrag drag) =>
             {
