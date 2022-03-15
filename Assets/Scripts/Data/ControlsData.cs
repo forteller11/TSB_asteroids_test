@@ -1,7 +1,7 @@
 using Unity.Entities;
 using Unity.Mathematics;
 
-namespace Data
+namespace Charly.Data
 {
     public struct ControlsData : IComponentData
     {

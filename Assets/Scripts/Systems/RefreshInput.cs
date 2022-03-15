@@ -1,6 +1,5 @@
-using Data;
+using Charly.Data;
 using Unity.Entities;
-using Unity.Mathematics;
 using UnityEngine;
 
 namespace Charly.Systems
@@ -49,10 +48,6 @@ namespace Charly.Systems
                 bool isDown = _controlsAsset.Game.PrimaryAction.IsPressed();
                 controls.Primary.RefreshWithPreviousState(isDown);
             }
-            Debug.Log(controls.Movement);
-            Debug.Log(controls.Turn);
-            Debug.Log(controls.Primary);
         }
-        
     }
 }
