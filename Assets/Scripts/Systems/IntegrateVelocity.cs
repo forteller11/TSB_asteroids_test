@@ -12,10 +12,10 @@ namespace Charly.Systems
             float dt = Time.fixedDeltaTime;
             Entities.ForEach((ref Velocity2D velocity, ref Translation translation, ref Rotation rotation) =>
             {
-                float2 forceToAdd = velocity.LinearVelocity * dt;
+                float2 forceToAdd = velocity.Linear * dt;
                 translation.Value += new float3(forceToAdd, 0);
 
-                var angularAcceleration = quaternion.Euler(0, 0, velocity.AngularVelocity * dt);
+                var angularAcceleration = quaternion.Euler(0, 0, velocity.Angular * dt);
                 rotation.Value = math.mul(rotation.Value , angularAcceleration);
             }).ScheduleParallel();
         }

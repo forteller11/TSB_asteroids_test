@@ -137,6 +137,7 @@ GameObject:
   - component: {fileID: 214704139}
   - component: {fileID: 214704141}
   - component: {fileID: 214704142}
+  - component: {fileID: 214704143}
   m_Layer: 0
   m_Name: Test Sprite
   m_TagString: Untagged
@@ -253,10 +254,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4b862711fee45c2bc956a6f678686f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LinearVelocity:
-    x: 1.13
+  Linear:
+    x: 1
     y: 0
-  AngularVelocity: 0.31
+  Angular: 0.69
   Mass: 1
 --- !u!114 &214704142
 MonoBehaviour:
@@ -273,6 +274,20 @@ MonoBehaviour:
   LinearSensitivity: 1
   AngularSensitivity: 1
   Drag: 1
+--- !u!114 &214704143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 214704136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b8f23bc7c8b4ac9b2b0f4cae47defdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Linear: 0.5
+  Angular: 0.95
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -564,10 +579,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4b862711fee45c2bc956a6f678686f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LinearVelocity:
+  Linear:
     x: 0
     y: 0
-  AngularVelocity: 0
+  Angular: 0
   Mass: 1
 --- !u!114 &1411057504
 MonoBehaviour:
