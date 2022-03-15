@@ -68,7 +68,7 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "Q/E",
+                    "name": "A/D",
                     "id": "530d577d-5e25-4323-9a10-ca3588400aae",
                     "path": "1DAxis",
                     "interactions": "",
@@ -81,7 +81,7 @@
                 {
                     "name": "negative",
                     "id": "22387eec-1d66-46ef-ab8f-42cda79994f4",
-                    "path": "<Keyboard>/e",
+                    "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
@@ -92,7 +92,7 @@
                 {
                     "name": "positive",
                     "id": "71b9de48-d756-4f47-99f7-041d8469076b",
-                    "path": "<Keyboard>/q",
+                    "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",

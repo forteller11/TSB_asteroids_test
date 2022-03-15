@@ -1,9 +1,8 @@
-using Charly.Utils;
+using Charly.Common.Utils;
 using Charly.Data;
 using UnityEngine;
-using Collider2D = Charly.Data.Collider2D;
 
-namespace Authoring
+namespace Charly.Authoring
 {
     public class CircleCollider2DAuthoring : MonoBehaviour
     {

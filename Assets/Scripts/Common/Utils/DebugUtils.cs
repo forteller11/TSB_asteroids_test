@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Charly.Utils
+namespace Charly.Common.Utils
 {
     public class DebugUtils
     {
