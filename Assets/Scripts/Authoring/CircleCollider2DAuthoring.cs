@@ -11,14 +11,10 @@ namespace Authoring
 
         private void OnDrawGizmosSelected()
         {
-            Debug.Log(Gizmos.color);
-
             using (DebugUtils.CreateGizmoColorFrame(Color.yellow))
             {
-                Debug.Log(Gizmos.color);
                 Gizmos.DrawWireSphere(transform.position, Radius);
             }
-            Debug.Log(Gizmos.color);
         }
     }
     public class CircleCollider2DConversion : GameObjectConversionSystem
