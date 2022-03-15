@@ -125,7 +125,7 @@ public partial class @MainControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": ""negative"",
                     ""id"": ""27d1375f-0d18-4913-adef-113e4180a321"",
-                    ""path"": ""<Keyboard>/s"",
+                    ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
@@ -136,7 +136,7 @@ public partial class @MainControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": ""positive"",
                     ""id"": ""ae5ddf21-be42-44d6-b3c7-629306f8dbb6"",
-                    ""path"": ""<Keyboard>/w"",
+                    ""path"": ""<Keyboard>/q"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
