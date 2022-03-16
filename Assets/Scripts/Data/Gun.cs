@@ -7,7 +7,7 @@ namespace Charly.Data
     public struct Gun : IComponentData
     {
         public float InitialVelocityMagnitude;
-        public float2 FireOffset;
+        public Entity ProjectileOrigin;
         public Entity BulletPrefab;
     }
 }

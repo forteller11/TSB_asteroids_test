@@ -1,3 +1,4 @@
+using System;
 using Charly.Data;
 using Mono.CompilerServices.SymbolWriter;
 using Unity.Assertions;
@@ -10,7 +11,7 @@ namespace Charly.Authoring
     public class GunAuthoring : MonoBehaviour
     {
         public float InitialVelocityMagnitude = 1;
-        public float2 BulletOffset;
+        public GameObject BulletOrigin;
         public GameObject GunPrefab;
     }
 
@@ -20,16 +21,21 @@ namespace Charly.Authoring
         {
             Entities.ForEach((GunAuthoring authoring) =>
             {
-                
+
+                var bulletOrigin = authoring.BulletOrigin == null 
+                    ? authoring.gameObject 
+                    : authoring.BulletOrigin;
                 Assert.IsNotNull(authoring.GunPrefab);
                 
                 DeclareReferencedPrefab(authoring.GunPrefab);
 
                 var entity = GetPrimaryEntity(authoring);
-                DstEntityManager.AddComponentData(entity, new Gun()
+                var gunPrefabEntity = GetPrimaryEntity(authoring.GunPrefab);
+                var bulletOriginEntity = GetPrimaryEntity(authoring.BulletOrigin);
+                DstEntityManager.AddComponentData(entity, new Gun
                 {
-                    BulletPrefab = Entity.Null,
-                    FireOffset = authoring.BulletOffset,
+                    BulletPrefab = gunPrefabEntity,
+                    ProjectileOrigin = bulletOriginEntity,
                     InitialVelocityMagnitude = authoring.InitialVelocityMagnitude
                 });
 
