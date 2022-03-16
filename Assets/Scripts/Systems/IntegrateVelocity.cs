@@ -5,6 +5,7 @@ using Unity.Transforms;
 
 namespace Charly.Systems
 {
+    [UpdateAfter(typeof(ApplyForceToShip))]
     public class IntegrateVelocity : SystemBase
     {
         protected override void OnUpdate()

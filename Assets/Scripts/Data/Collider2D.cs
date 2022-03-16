@@ -9,7 +9,7 @@ namespace Charly.Data
     }
     public enum ColliderType
     {
-        None=default,
+        Inactive=default,
         Circle,
     }
     

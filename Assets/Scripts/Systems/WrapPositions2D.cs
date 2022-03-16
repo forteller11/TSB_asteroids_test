@@ -6,9 +6,10 @@ using UnityEngine;
 
 namespace Charly.Systems
 {
+    [UpdateAfter(typeof(IntegrateVelocity))]
     public class WrapPositions2D : SystemBase
     {
-        //make WorldBounds part of a singleton post-conversion process for convenience sake
+        //Makes WorldBounds part of a singleton post-conversion process for convenience's sake
         protected override void OnCreate()
         {
             var entityQuery = EntityManager.CreateEntityQuery(ComponentType.ReadOnly<WorldBounds>());
@@ -32,7 +33,7 @@ namespace Charly.Systems
             if (!TryGetSingleton<WorldBounds>(out var worldBounds))
                 return;
             
-            //todo look into avoiding branching in favour of modulo operator or other workarounds if this ever becomes a perf problem
+            //todo [Perf] look into avoiding branching in favour of modulo operator or other workarounds if this ever becomes a perf problem
             Entities.ForEach((ref Translation translation) =>
             {
                 //this assumes that positions will never be more than worldBounds.Value.Size out of the bounds

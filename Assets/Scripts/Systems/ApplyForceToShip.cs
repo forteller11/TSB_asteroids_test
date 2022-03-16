@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace Charly.Systems
 {
+    [UpdateAfter(typeof(RefreshInput))]
     public class ApplyForceToShip : SystemBase
     {
         protected override void OnUpdate()

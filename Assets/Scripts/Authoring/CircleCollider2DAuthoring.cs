@@ -30,6 +30,9 @@ namespace Charly.Authoring
                     Radius = authoring.Radius
                 };
                 DstEntityManager.AddComponentData(entity, data);
+
+                //NOTE: I'm not convinced EVERY entity with a collider should also necessarily have an overlapEventBuffer
+                DstEntityManager.AddBuffer<OverlapEventBuffer>(entity);
             });
         }
     }
