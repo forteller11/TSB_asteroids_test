@@ -14,10 +14,10 @@ namespace Charly.Systems
     //this system outputs OverlapEvents
     public class FindOverlaps : SystemBase
     {
-        private EndSimulationEntityCommandBufferSystem _commandBufferSystem;
+        private EndSimulationEntityCommandBufferSystem _endSimulationECBSystem;
         protected override void OnCreate()
         {
-            _commandBufferSystem = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
+            _endSimulationECBSystem = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
 
         }
 
@@ -31,20 +31,24 @@ namespace Charly.Systems
             var entities = query.ToEntityArrayAsync(Allocator.TempJob, out var entitiesJob);
             var colliders = query.ToComponentDataArrayAsync<Collider2D>(Allocator.TempJob, out var collidersJob);
             var translations = query.ToComponentDataArrayAsync<Translation>(Allocator.TempJob, out var translationsJob);
-            
+            // var buffers = query.ToComponentDataArrayAsync<DynamicBuffer<OverlapEventBuffer>>(Allocator.TempJob, out var overlapEventJob);
 
-            EntityCommandBuffer commandBuffer = _commandBufferSystem.CreateCommandBuffer();
+            EntityCommandBuffer commandBuffer = _endSimulationECBSystem.CreateCommandBuffer();
             
-            var inputDataDeps = JobHandle.CombineDependencies(entitiesJob, collidersJob, translationsJob);
+            var overlapDataDependencies = JobHandle.CombineDependencies(entitiesJob, collidersJob, translationsJob);
 
             //todo make parralel
             // var commandBufferThreadSafe = commandBufferSystem.CreateCommandBuffer().AsParallelWriter();
             
-            //todo buffer complete
             Dependency = Job.WithCode(() =>
             {
                 for (int i = 0; i < entities.Length; i++)
                 {
+                    var currentEntity = entities[i];
+                    // //my way of "clearing" the buffer... not sure if this will cause structural changes or if the ECB is smart enough to optimize this out
+                    // commandBuffer.RemoveComponent<OverlapEventBuffer>(entities[i]);
+                    // commandBuffer.AddBuffer<OverlapEventBuffer>(entities[i]);
+                    commandBuffer.SetBuffer<OverlapEventBuffer>(entities[i]);
                     for (int j = 0; j < entities.Length; j++)
                     {
                         if (i == j)
@@ -66,7 +70,6 @@ namespace Charly.Systems
                             float distanceBetween = math.distance(position1, position2);
                             if (distanceBetween - radiiSum < 0)
                             {
-                                var currentEntity = entities[i];
                                 float2 toOtherDir = math.normalize(position2 - position1);
                                 //todo this approximation could be improved if you take velocity/previous position into account
                                 float2 approxContact = position1 + (toOtherDir * distanceBetween / 2);
@@ -79,20 +82,20 @@ namespace Charly.Systems
                         }
                         else
                         {
-                            throw new NotImplementedException($"Overlap calculation of {collider1.Type} and {collider2.Type} not implemented!");
+                            throw new NotImplementedException($"Overlap calculation between {collider1.Type} and {collider2.Type} not implemented!");
                         }
                     }
                 }
 
             })
-                .WithName("Find_Overlap_Job")
+                .WithName("find_and_record_overlaps_job")
                 .WithDisposeOnCompletion(entities)
                 .WithDisposeOnCompletion(colliders)
                 .WithDisposeOnCompletion(translations)
                 .WithDisposeOnCompletion(commandBuffer)
-                .Schedule(inputDataDeps);
+                .Schedule(overlapDataDependencies);
            
-            _commandBufferSystem.AddJobHandleForProducer(Dependency);
+            _endSimulationECBSystem.AddJobHandleForProducer(Dependency);
         }
     }
 }
