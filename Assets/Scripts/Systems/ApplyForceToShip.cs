@@ -11,7 +11,7 @@ namespace Charly.Systems
     {
         protected override void OnUpdate()
         {
-            if (!TryGetSingleton<ControlsData>(out var controls))
+            if (!TryGetSingleton<InputData>(out var controls))
             {
                 Debug.LogWarning($"Could not find controls to apply force to ship");
                 return;

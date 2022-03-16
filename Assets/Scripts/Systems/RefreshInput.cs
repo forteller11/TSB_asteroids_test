@@ -16,7 +16,7 @@ namespace Charly.Systems
         {
             _controlsAsset = new MainControls();
             
-            if (HasSingleton<ControlsData>())
+            if (HasSingleton<InputData>())
             {
                 Debug.LogWarning($"This system expects to be responsible for the creation of the ControlData struct... but it already exists, likely a bug");
             }
@@ -24,7 +24,7 @@ namespace Charly.Systems
             {
                 // Remarks: didn't use conversion workflow to create ControlsData as likely we'll ALWAYS want input
                 // So forcing every scene to include it explicitly could be bug prone and burdensome.
-                EntityManager.CreateEntity(typeof(ControlsData));
+                EntityManager.CreateEntity(typeof(InputData));
             }
         }
 
@@ -41,12 +41,13 @@ namespace Charly.Systems
         protected override void OnUpdate()
         {
             //refresh inputs
-            if (TryGetSingleton<ControlsData>(out var controls))
+            if (TryGetSingleton<InputData>(out var controls))
             {
                 controls.Movement = _controlsAsset.Game.Thrust.ReadValue<float>();
                 controls.Turn = _controlsAsset.Game.Turn.ReadValue<float>();
-                bool isDown = _controlsAsset.Game.PrimaryAction.IsPressed();
-                controls.Primary.RefreshWithPreviousState(isDown);
+                controls.Primary.IsDown = _controlsAsset.Game.PrimaryAction.IsPressed();
+                controls.Primary.PressedThisTick = _controlsAsset.Game.PrimaryAction.WasPressedThisFrame();
+                controls.Primary.ReleasedThisTick = _controlsAsset.Game.PrimaryAction.WasReleasedThisFrame();
                 
                 SetSingleton(controls);
             }

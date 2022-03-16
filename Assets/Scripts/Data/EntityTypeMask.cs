@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace Charly.Data
 {
     //Note: I don't think using enums or flags for branches are code smells in data-oriented coding like they are in OOP, they're honest and simple.
@@ -6,7 +8,6 @@ namespace Charly.Data
         public GameType Type;
     }
 
-    [System.Flags]
     public enum GameType
     {
         None     = 0b_0000_0000,

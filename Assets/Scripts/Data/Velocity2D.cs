@@ -9,6 +9,14 @@ namespace Charly.Data
         public float2 Linear;
         public float Angular;
         public float Mass;
-        public float InverseMass => math.rcp(Mass); //todo remove this, getters with hidden perf costs are gross. 
+        
+        public float InverseMass => math.rcp(Mass); //todo [Perf] remove this, getters with hidden perf costs are gross. 
+        
+        public Velocity2D(float2 linear, float angular, float mass)
+        {
+            Linear = linear;
+            Angular = angular;
+            Mass = mass;
+        }
     }
 }
