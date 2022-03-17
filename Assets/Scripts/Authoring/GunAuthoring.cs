@@ -1,20 +1,24 @@
-using System;
+using System.Collections.Generic;
 using Charly.Data;
-using Mono.CompilerServices.SymbolWriter;
 using Unity.Assertions;
 using Unity.Entities;
-using Unity.Mathematics;
 using UnityEngine;
 
 namespace Charly.Authoring
 {
-    public class GunAuthoring : MonoBehaviour
+    public class GunAuthoring : MonoBehaviour, IDeclareReferencedPrefabs
     {
         public float InitialVelocityMagnitude = 1;
         public GameObject BulletOrigin;
         public GameObject GunPrefab;
+        public void DeclareReferencedPrefabs(List<GameObject> referencedPrefabs)
+        {
+            if (GunPrefab != null)
+             referencedPrefabs.Add(GunPrefab);
+        }
     }
 
+    [UpdateInGroup(typeof(GameObjectDeclareReferencedObjectsGroup))]
     public class GunConversion : GameObjectConversionSystem
     {
         protected override void OnUpdate()
@@ -27,11 +31,9 @@ namespace Charly.Authoring
                     : authoring.BulletOrigin;
                 Assert.IsNotNull(authoring.GunPrefab);
                 
-                DeclareReferencedPrefab(authoring.GunPrefab);
-
                 var entity = GetPrimaryEntity(authoring);
                 var gunPrefabEntity = GetPrimaryEntity(authoring.GunPrefab);
-                var bulletOriginEntity = GetPrimaryEntity(authoring.BulletOrigin);
+                var bulletOriginEntity = GetPrimaryEntity(bulletOrigin);
                 DstEntityManager.AddComponentData(entity, new Gun
                 {
                     BulletPrefab = gunPrefabEntity,
