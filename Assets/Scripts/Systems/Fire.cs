@@ -33,7 +33,7 @@ namespace Charly.Systems
                     var rotatedDir = math.mul(rotation.Value, new float3(0, 1, 0)).xy;
                     
                     //todo don't override mass here as it may be set in the prefab... make mass a seperate component in future?
-                    commandBuffer.SetComponent(entityInQueryIndex, newBullet, new Velocity2D(rotatedDir * gun.InitialVelocityMagnitude, 0, .1f));
+                    commandBuffer.SetComponent(entityInQueryIndex, newBullet, new Velocity2D(rotatedDir * gun.InitialVelocityMagnitude, 0));
                 }
             }).ScheduleParallel();
             

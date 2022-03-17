@@ -24,77 +24,69 @@ namespace Charly.Systems
         protected override void OnUpdate()
         {
             var query = GetEntityQuery(
-                ComponentType.ReadWrite<OverlapEventBuffer>(),
                 ComponentType.ReadOnly<Collider2D>(), 
-                ComponentType.ReadOnly<Translation>());
+                ComponentType.ReadOnly<LocalToWorld>());
             
             var entities = query.ToEntityArrayAsync(Allocator.TempJob, out var entitiesJob);
-            var colliders = query.ToComponentDataArrayAsync<Collider2D>(Allocator.TempJob, out var collidersJob);
-            var translations = query.ToComponentDataArrayAsync<Translation>(Allocator.TempJob, out var translationsJob);
-            // var buffers = query.ToComponentDataArrayAsync<DynamicBuffer<OverlapEventBuffer>>(Allocator.TempJob, out var overlapEventJob);
-
-            EntityCommandBuffer commandBuffer = _endSimulationECBSystem.CreateCommandBuffer();
             
-            var overlapDataDependencies = JobHandle.CombineDependencies(entitiesJob, collidersJob, translationsJob);
+            var collidersFromEntity = GetComponentDataFromEntity<Collider2D>(true);
+            var ltwFromEntity = GetComponentDataFromEntity<LocalToWorld>(true);
 
-            //todo make parralel
-            // var commandBufferThreadSafe = commandBufferSystem.CreateCommandBuffer().AsParallelWriter();
+            var commandBufferConcurrent = _endSimulationECBSystem.CreateCommandBuffer().AsParallelWriter();
             
-            Dependency = Job.WithCode(() =>
-            {
-                for (int i = 0; i < entities.Length; i++)
+            //IMPORTANT: in order for this to parallel AND deterministic, no responses can (or writes of any kind) can occur here.
+            Dependency = Entities.ForEach((Entity currentEntity, int entityInQueryIndex, in Collider2D collider, in LocalToWorld ltw) =>
                 {
-                    var currentEntity = entities[i];
-                    // //my way of "clearing" the buffer... not sure if this will cause structural changes or if the ECB is smart enough to optimize this out
-                    // commandBuffer.RemoveComponent<OverlapEventBuffer>(entities[i]);
-                    // commandBuffer.AddBuffer<OverlapEventBuffer>(entities[i]);
-                    commandBuffer.SetBuffer<OverlapEventBuffer>(entities[i]);
-                    for (int j = 0; j < entities.Length; j++)
+                    commandBufferConcurrent.SetBuffer<OverlapEventBuffer>(entityInQueryIndex, currentEntity);
+                    foreach (var otherEntity in entities)
                     {
-                        if (i == j)
+                        if (currentEntity == otherEntity)
                             continue;
 
-                        var collider1 = colliders[i];
-                        var collider2 = colliders[j];
+                        var collider1 = collider;
+                        var collider2 = collidersFromEntity[otherEntity];
 
                         if (collider1.Type == ColliderType.Inactive || collider2.Type == ColliderType.Inactive)
                             continue;
-                        
-                        var position1 = translations[i].Value.xy;
-                        var position2 = translations[j].Value.xy;
 
-                        if (collider1.Type == ColliderType.Circle 
-                            && collider2.Type == ColliderType.Circle)
+                        var position1 = ltw.Position.xy;
+                        var position2 = ltwFromEntity[otherEntity].Position.xy;
+
+                        if (collider1.Type == ColliderType.Circle && collider2.Type == ColliderType.Circle)
                         {
                             float radiiSum = collider1.Radius + collider2.Radius;
                             float distanceBetween = math.distance(position1, position2);
-                            if (distanceBetween - radiiSum < 0)
+                            float distanceToSeparation = radiiSum - distanceBetween;
+
+                            if (distanceToSeparation > 0)
                             {
                                 float2 toOtherDir = math.normalize(position2 - position1);
                                 //todo this approximation could be improved if you take velocity/previous position into account
                                 float2 approxContact = position1 + (toOtherDir * distanceBetween / 2);
-                                
-                                // commandBufferThreadSafe.AppendToBuffer(currentEntity.Index, currentEntity, new OverlapEventBuffer(entities[j], approxContact));
-                                commandBuffer.AppendToBuffer(currentEntity, new OverlapEventBuffer(entities[j], approxContact));
+
+                                commandBufferConcurrent.AppendToBuffer(
+                                    entityInQueryIndex, 
+                                    currentEntity,
+                                    new OverlapEventBuffer(otherEntity, approxContact, distanceToSeparation));
                                 Debug.Log("OVERLAP occured");
 
                             }
                         }
                         else
                         {
-                            throw new NotImplementedException($"Overlap calculation between {collider1.Type} and {collider2.Type} not implemented!");
+                            throw new NotImplementedException(
+                                $"Overlap calculation between {collider1.Type} and {collider2.Type} not implemented!");
                         }
                     }
-                }
-
-            })
-                .WithName("find_and_record_overlaps_job")
+                })
+                .WithReadOnly(collidersFromEntity)
+                .WithReadOnly(ltwFromEntity)
                 .WithDisposeOnCompletion(entities)
-                .WithDisposeOnCompletion(colliders)
-                .WithDisposeOnCompletion(translations)
-                .WithDisposeOnCompletion(commandBuffer)
-                .Schedule(overlapDataDependencies);
-           
+                // .WithNativeDisableParallelForRestriction(collidersFromEntity)
+                // .WithNativeDisableParallelForRestriction(ltwFromEntity)
+                .WithNativeDisableParallelForRestriction(entities)
+                .ScheduleParallel(entitiesJob);
+
             _endSimulationECBSystem.AddJobHandleForProducer(Dependency);
         }
     }

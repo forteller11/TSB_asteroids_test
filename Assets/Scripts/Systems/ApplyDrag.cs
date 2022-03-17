@@ -17,13 +17,15 @@ namespace Charly.Systems
             //use componentfromentity so that mass can be optional and defaults to 1
             
             float dt = Time.DeltaTime;
-            Entities.ForEach((ref Velocity2D velocity, in PhysicsDrag drag) =>
+            Entities.ForEach((ref Velocity2D velocity, in PhysicsProperties physicsProperties) =>
             {
-                var linearWithoutDT = velocity.Linear * drag.Linear;
-                velocity.Linear = math.lerp(velocity.Linear, linearWithoutDT, dt);
+                float commonRate = dt * physicsProperties.Mass;
+                
+                var rateOfDragLinear = math.clamp(commonRate * physicsProperties.LinearDrag, float2.zero, new float2(1));
+                velocity.Linear = math.lerp(velocity.Linear, float2.zero, rateOfDragLinear);
 
-                var newAngularWithoutDT = velocity.Angular * drag.Angular;
-                velocity.Angular = math.lerp(velocity.Angular, newAngularWithoutDT, dt);
+                float rateOfDragAngular = math.clamp(commonRate * physicsProperties.AngularDrag, 0, 1);
+                velocity.Angular = math.lerp(velocity.Angular, 0, rateOfDragAngular);
             }).ScheduleParallel();
         }
     }
