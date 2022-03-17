@@ -1,7 +1,10 @@
+using Unity.Entities;
+
 namespace Charly.Data
 {
-    public struct DestructibleTag
+    [GenerateAuthoringComponent]
+    public struct DestructibleTag : IComponentData
     {
-        public EntityTypeMask NotDestroyedBy;
+        
     }
 }
