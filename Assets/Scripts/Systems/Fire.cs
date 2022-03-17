@@ -36,6 +36,8 @@ namespace Charly.Systems
                     commandBuffer.SetComponent(entityInQueryIndex, newBullet, new Velocity2D(rotatedDir * gun.InitialVelocityMagnitude, 0, .1f));
                 }
             }).ScheduleParallel();
+            
+            _endSimECBSystem.AddJobHandleForProducer(Dependency);
         }
     }
 }
