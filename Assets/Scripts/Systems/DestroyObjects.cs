@@ -1,3 +1,4 @@
+using Charly.Common.Utils;
 using Charly.Data;
 using Unity.Entities;
 
@@ -14,17 +15,20 @@ namespace Charly.Systems
         protected override void OnUpdate()
         {
             var commandBufferConcurrent = _endSimECBSystem.CreateCommandBuffer().AsParallelWriter();
-            var bullets = GetComponentDataFromEntity<Bullet>(true);
+            var bullets = GetComponentDataFromEntity<Destroyer>(true);
             Entities
-                .WithAll<DestructibleTag>()
-                .ForEach((Entity currentEntity, int entityInQueryIndex, in DynamicBuffer<OverlapEventBuffer> overlaps) =>
+                .ForEach((Entity currentEntity, int entityInQueryIndex, in DynamicBuffer<OverlapEventBuffer> overlaps, in Destructible destructible) =>
                 {
                     foreach (var overlap in overlaps)
                     {
                         if (bullets.HasComponent(overlap.Other))
                         {
-                            commandBufferConcurrent.DestroyEntity(entityInQueryIndex, currentEntity);
-                            return;
+                            var bullet = bullets[overlap.Other];
+                            if (MaskUtils.HasAllFlags((int)bullet.Mask,(int)destructible.DestroyedBy))
+                            {
+                                commandBufferConcurrent.DestroyEntity(entityInQueryIndex, currentEntity);
+                                return;
+                            }
                         }
                     }
                 })

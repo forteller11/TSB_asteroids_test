@@ -1,14 +1,9 @@
-using UnityEngine;
+using System;
 
 namespace Charly.Data
 {
-    //Note: I don't think using enums or flags for branches are code smells in data-oriented coding like they are in OOP, they're honest and simple.
-    public struct EntityTypeMask
-    {
-        public GameType Type;
-    }
-
-    public enum GameType
+    [Flags]
+    public enum Mask : int
     {
         None     = 0b_0000_0000,
         

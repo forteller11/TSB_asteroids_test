@@ -3,8 +3,8 @@ using Unity.Entities;
 namespace Charly.Data
 {
     [GenerateAuthoringComponent]
-    public struct DestructibleTag : IComponentData
+    public struct Destructible : IComponentData
     {
-        
+        public Mask DestroyedBy;
     }
 }
