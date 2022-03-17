@@ -6,6 +6,7 @@ namespace Charly.Data
     {
         public ColliderType Type;
         public float Radius;
+        // todo public Mask ColliderWith;
     }
     public enum ColliderType
     {
