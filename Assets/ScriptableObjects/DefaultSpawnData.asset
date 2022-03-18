@@ -14,5 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpawnChancePerSecond: 0.1
   Enemies:
+  - Prefab: {fileID: 8804125953143366831, guid: 6fbd8b72336278c4dbb37c072cf5bad9, type: 3}
+    SpawnRate: 1
   - Prefab: {fileID: 7151536348930845031, guid: d9d0c9e7edd17dd49a944208898fe8c3, type: 3}
     SpawnRate: 1
