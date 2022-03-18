@@ -575,7 +575,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BoundsSize:
-    x: 11.097884
+    x: 13.333334
     y: 10
   _worldPadding:
     x: 0
