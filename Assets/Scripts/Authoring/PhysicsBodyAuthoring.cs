@@ -15,11 +15,11 @@ namespace Charly.Authoring
         public float Mass = 1;
 
         [Header("Drag")] 
-        public float LinearDrag = 1;
-        public float AngularDrag = 1;
+        [Range(0,1)] public float LinearConservation = 1;
+        [Range(0,1)] public float AngularConservation = 1;
         public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
         {
-            var props = new PhysicsProperties { LinearDrag = LinearDrag, AngularDrag = AngularDrag };
+            var props = new PhysicsProperties { LinearDrag = LinearConservation, AngularDrag = AngularConservation };
             props.SetMass(Mass);
             dstManager.AddComponentData(entity, props);
 

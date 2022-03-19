@@ -1,31 +1,37 @@
 using Charly.Data;
 using Unity.Entities;
 using Unity.Mathematics;
+using UnityEngine;
 
 namespace Charly.Systems
 {
     [UpdateBefore(typeof(IntegrateVelocity))]
     public class ApplyDrag : SystemBase
     {
+        private float _averageDT;
+        protected override void OnCreate()
+        {
+            _averageDT = Time.DeltaTime;
+        }
+
         protected override void OnUpdate()
         {
-            //todo improve authoring:
-            //this is asymptotic drag... but is no longer really normalized because of incorporation of deltaTime for frame rate independence
-            //the authoring is now fuzzy and risks accidentally creating an inverse drag if the DeltaTime is extreme?
-            
-            //todo add mass to calculations
-            //use componentfromentity so that mass can be optional and defaults to 1
-            
-            float dt = Time.DeltaTime;
+            _averageDT = math.lerp(_averageDT, Time.DeltaTime, 0.05f);
+            //this is done so everything can revolve around a normalized range, instead of involving arbitrary values
+            float deltaFromAverageDT = Time.DeltaTime / _averageDT;
+
             Entities.ForEach((ref Velocity2D velocity, in PhysicsProperties physicsProperties) =>
             {
-                float commonRate = dt * physicsProperties.Mass;
+                //todo deal with mag, not componenets seperately
+ 
+                var draggedLinearVelocity = velocity.Linear * physicsProperties.LinearDrag;
+                var draggedLinearVelocityTimeAdjusted = math.lerp(velocity.Linear, draggedLinearVelocity, deltaFromAverageDT);
+                velocity.Linear = draggedLinearVelocityTimeAdjusted;
                 
-                var rateOfDragLinear = math.clamp(commonRate * physicsProperties.LinearDrag, float2.zero, new float2(1));
-                velocity.Linear = math.lerp(velocity.Linear, float2.zero, rateOfDragLinear);
+                var draggedAngularVelocity = velocity.Angular * physicsProperties.AngularDrag;
+                var draggedAngularVelocityTimeAdjusted = math.lerp(velocity.Angular, draggedAngularVelocity, deltaFromAverageDT);
+                velocity.Angular = draggedAngularVelocityTimeAdjusted;
 
-                float rateOfDragAngular = math.clamp(commonRate * physicsProperties.AngularDrag, 0, 1);
-                velocity.Angular = math.lerp(velocity.Angular, 0, rateOfDragAngular);
             }).ScheduleParallel();
         }
     }
