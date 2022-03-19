@@ -11,7 +11,7 @@ namespace Charly.Authoring
 
         private void OnDrawGizmosSelected()
         {
-            using (DebugUtils.CreateGizmoColorFrame(Color.yellow))
+            using (new DebugUtils.ColorFrame(Color.yellow))
             {
                 Gizmos.DrawWireSphere(transform.position, WorldRadius);
             }
