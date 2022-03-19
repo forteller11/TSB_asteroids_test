@@ -199,7 +199,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d7221de6396490d93d540311448c8de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InitialVelocityMagnitude: 0.1
+  InitialVelocityMagnitude: 2
   ProjectileOrigin: {fileID: 1415987295}
   BulletPrefab: {fileID: 8804125953143366831, guid: 6fbd8b72336278c4dbb37c072cf5bad9, type: 3}
 --- !u!114 &214704145
