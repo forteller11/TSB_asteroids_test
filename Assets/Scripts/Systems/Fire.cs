@@ -17,13 +17,18 @@ namespace Charly.Systems
 
         protected override void OnUpdate()
         {
-            var input = GetSingleton<InputData>();
-            
+            if (!TryGetSingleton<InputData>(out var input))
+            {
+                Debug.LogError("No Singleton");
+                return;
+            }
+
+
             var commandBuffer = _endSimECBSystem.CreateCommandBuffer().AsParallelWriter();
             
             Entities.ForEach((int entityInQueryIndex, in Rotation rotation, in Gun gun) =>
             {
-                if (input.Primary.IsDown)
+                if (input.Primary.PressedThisTick)
                 {
                     var newBullet = commandBuffer.Instantiate(entityInQueryIndex, gun.BulletPrefab);
 
@@ -34,6 +39,7 @@ namespace Charly.Systems
                     
                     //todo don't override mass here as it may be set in the prefab... make mass a seperate component in future?
                     commandBuffer.SetComponent(entityInQueryIndex, newBullet, new Velocity2D(rotatedDir * gun.InitialVelocityMagnitude, 0));
+                    commandBuffer.SetComponent(entityInQueryIndex, newBullet, new Rotation(){Value = rotation.Value});
                 }
             }).ScheduleParallel();
             

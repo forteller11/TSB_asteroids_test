@@ -7,17 +7,17 @@ using UnityEngine;
 
 namespace Charly.Authoring
 {
-    [RequireComponent(typeof(Camera))] 
     [ExecuteInEditMode]
     public class CameraToBoundsAuthoring : MonoBehaviour
     {
-        [SerializeField] [HideInInspector] public float2 BoundsSize = new float2(1,1);
+        [SerializeField] [HideInInspector] public float2 BoundsSize = new float2(0,0);
         [SerializeField] float2 _worldPadding = new float2(1,1);
 
-        [SerializeField] [HideInInspector] Camera _attachedCamera;
+        [SerializeField] Camera _attachedCamera;
         private void Awake()
         {
-            _attachedCamera = GetComponent<Camera>();
+            if (_attachedCamera == null)
+                _attachedCamera = GetComponent<Camera>();
         }
 
         private void OnValidate()

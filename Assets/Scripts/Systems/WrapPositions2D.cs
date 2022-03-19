@@ -11,30 +11,14 @@ namespace Charly.Systems
     [UpdateAfter(typeof(IntegrateVelocity))]
     public class WrapPositions2D : SystemBase
     {
-        //Makes WorldBounds part of a singleton post-conversion process for convenience's sake
-        protected override void OnCreate()
-        {
-            var entityQuery = EntityManager.CreateEntityQuery(ComponentType.ReadOnly<WorldBounds>());
-            using var bounds = entityQuery.ToComponentDataArray<WorldBounds>(Allocator.Temp);
-            using var entities = entityQuery.ToEntityArray(Allocator.Temp);
-            
-            if (bounds.Length > 1)
-                Debug.LogWarning($"This system expects one {nameof(WorldBounds)} in the world, check for multiple authoring components");
-            
-            if (bounds.Length > 0)
-                SetSingleton(bounds[0]);
-
-            for (int i = 0; i < bounds.Length; i++)
-            {
-                EntityManager.RemoveComponent<WorldBounds>(entities[i]);
-            }
-        }
-        
         protected override void OnUpdate()
         {
             if (!TryGetSingleton<WorldBounds>(out var worldBounds))
+            {
+                Debug.LogWarning($"No WorldBounds singleton");
                 return;
-            
+            }
+
             //todo [Perf] look into avoiding branching in favour of modulo operator or other workarounds if this ever becomes a perf problem
             Entities.ForEach((Entity entity, ref Translation translation) =>
             {

@@ -20,10 +20,8 @@ namespace Charly.Authoring
         {
             Entities.ForEach((GunAuthoring authoring) =>
             {
-
                 Assert.IsNotNull(authoring.GunPrefab);
                 DeclareReferencedPrefab(authoring.GunPrefab);
-
             });
         }
     }

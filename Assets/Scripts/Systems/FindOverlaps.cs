@@ -37,6 +37,7 @@ namespace Charly.Systems
             //IMPORTANT: in order for this to parallel AND deterministic, no responses can (or writes of any kind) can occur here.
             Dependency = Entities.ForEach((Entity currentEntity, int entityInQueryIndex, in Collider2D collider, in LocalToWorld ltw) =>
                 {
+                    //todo [Performance] Only set this when necessary as I think it creates a lot of overhead in the _endSimulationECBSystem
                     commandBufferConcurrent.SetBuffer<OverlapEventBuffer>(entityInQueryIndex, currentEntity);
                     foreach (var otherEntity in entities)
                     {
@@ -68,8 +69,6 @@ namespace Charly.Systems
                                     entityInQueryIndex, 
                                     currentEntity,
                                     new OverlapEventBuffer(otherEntity, approxContact, distanceToSeparation));
-                                Debug.Log("OVERLAP occured");
-
                             }
                         }
                         else
@@ -82,8 +81,6 @@ namespace Charly.Systems
                 .WithReadOnly(collidersFromEntity)
                 .WithReadOnly(ltwFromEntity)
                 .WithDisposeOnCompletion(entities)
-                // .WithNativeDisableParallelForRestriction(collidersFromEntity)
-                // .WithNativeDisableParallelForRestriction(ltwFromEntity)
                 .WithNativeDisableParallelForRestriction(entities)
                 .ScheduleParallel(entitiesJob);
 

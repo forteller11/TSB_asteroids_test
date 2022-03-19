@@ -6,46 +6,33 @@ using UnityEngine;
 
 namespace Charly.Data
 {
-
-    public struct SpawnWaveData
-    {
-        public float SpawnChancePerSecond;
-        // public int MaxObjects;
-        public BlobArray<SpawnData> Datas;
-    }
-    public struct SpawnData
-    {
-        public Entity Prefab;
-        private float2 MaxInitialSpeed;
-        private float Rate;
-    }
-
+    
     [Serializable]
     //20 bytes
-    public struct Spawn
+    public struct SpawnEnemyData
     {
         public Entity Prefab;
         public float2 MaxInitialSpeed;
         // [HideInInspector] public float SpawnWeight;
-        public int NumberToSpawn;
         // public int RemainingCount =>NumberToSpawn;
     }
     
     //could hold 128/20 = 6 types
     [Serializable]
-    public struct SpawnWave
+    public struct SpawnWaveData
     {
+        public int EnemyIndex;
         public float SpawnChanceNormalizedPerSecond;
         public int MaxEnemiesInPlay;
-        public int CurrentEnemiesInPlay;
-        public FixedList128<Spawn> Enemies;
+        public int EnemiesInPlay;
+        public FixedList512<SpawnEnemyData> Enemies;
     }
     
     //can hold 5 waves
     [GenerateAuthoringComponent]
-    public struct WaveSpawner : IComponentData
+    public struct WaveSpawnerState : IComponentData
     {
-        public FixedList512<SpawnWave> Waves;
+        public FixedList4096<SpawnWaveData> Waves;
         [HideInInspector] public int WaveIndex;
     }
 }

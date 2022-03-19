@@ -6,13 +6,14 @@ namespace Charly.Authoring
 {
     public class CircleCollider2DAuthoring : MonoBehaviour
     {
-        public float Radius = 1;
+        public float LocalRadius = 1;
+        public float WorldRadius => LocalRadius * (transform.localScale.x + transform.localScale.y) / 2;
 
         private void OnDrawGizmosSelected()
         {
             using (DebugUtils.CreateGizmoColorFrame(Color.yellow))
             {
-                Gizmos.DrawWireSphere(transform.position, Radius);
+                Gizmos.DrawWireSphere(transform.position, WorldRadius);
             }
         }
     }
@@ -27,7 +28,7 @@ namespace Charly.Authoring
                 var data = new Charly.Data.Collider2D()
                 {
                     Type = ColliderType.Circle,
-                    Radius = authoring.Radius
+                    Radius = authoring.WorldRadius
                 };
                 DstEntityManager.AddComponentData(entity, data);
 
