@@ -6,7 +6,5 @@ namespace Charly.Data
     public struct TargetEntity : IComponentData
     {
     public Entity Target;
-    public float RateOfFire;
-    public float TimeUntilNextFire;
     }
 }

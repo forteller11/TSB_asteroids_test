@@ -7,8 +7,8 @@ namespace Charly.Data
     public struct Launcher : IComponentData
     {
         public float InitialVelocityMagnitude;
-        public Entity ProjectileOrigin;
         public Entity ProjectilePrefab;
+        public float2 TargetDirection;
         public bool ShouldLaunch;
     }
 }

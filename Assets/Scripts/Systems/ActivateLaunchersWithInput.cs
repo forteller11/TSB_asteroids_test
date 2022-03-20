@@ -14,7 +14,7 @@ namespace Charly.Systems
                 return;
             }
 
-            Entities.WithAll<InputDrivenTag>().ForEach((ref Launcher launchers) =>
+            Entities.WithAll<InputDrivenTag>().ForEach((ref Launcher launchers, in InputDrivenTag tag) =>
             {
                 launchers.ShouldLaunch = input.Primary.PressedThisTick;
             }).ScheduleParallel();

@@ -18,10 +18,9 @@ namespace Charly.Systems
             }
             
             float dt = Time.DeltaTime;
-            Entities.ForEach((ref Velocity2D velocity, in ShipMovement shipMovement, in Rotation rotation) =>
+            Entities.ForEach((ref Velocity2D velocity, in ShipMovement shipMovement, in Rotation rotation, in LocalToWorld ltw) =>
             {
-                
-                var forwardDirection3D = math.mul(rotation.Value, new float3(0,1, 0));
+                var forwardDirection3D = ltw.Up;
                 if (forwardDirection3D.z > 0.001)
                     Debug.LogWarning($"Forward Direction of ship does not lie flat on the x/y plane, which will lead to bugs.");
 
@@ -31,8 +30,7 @@ namespace Charly.Systems
                 
                 var angularAcceleration = shipMovement.AngularSensitivity * controls.Turn * dt;
                 velocity.Angular += angularAcceleration;
-                
-            }).ScheduleParallel();
+            }).Schedule();
         }
     }
 }

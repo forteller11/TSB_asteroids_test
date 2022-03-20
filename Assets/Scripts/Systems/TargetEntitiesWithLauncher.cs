@@ -1,42 +1,34 @@
+using Systems;
 using Unity.Entities;
+using Unity.Mathematics;
 using Unity.Transforms;
+using UnityEngine;
 
 namespace Charly.Data
 {
+    [UpdateAfter(typeof(CountDown))]
     public class TargetEntities : SystemBase
     {
-        protected override void OnCreate()
-        {
-            Entities.ForEach((ref TargetEntity targetEntity) =>
-            {
-                targetEntity.TimeUntilNextFire = targetEntity.RateOfFire;
-            }).Run();
-        }
-
         protected override void OnUpdate()
         {
-            float dt = Time.DeltaTime;
-            //todo rotate towards target
-            Entities.ForEach((ref TargetEntity targetEntity, ref Launcher launcher) =>
+            Entities.ForEach((ref Launcher launcher, ref Rotation rotation, in LocalToParent lwp, in LocalToWorld ltw, in CounterState counter, in TargetEntity targetEntity) =>
             {
-                if (targetEntity.Target == Entity.Null)
+                if (targetEntity.Target == Entity.Null ||
+                    !World.EntityManager.Exists(targetEntity.Target) ||
+                    !counter.FinishedThisFrame)
                 {
                     launcher.ShouldLaunch = false;
-                    return;
-                }
-
-                targetEntity.TimeUntilNextFire -= dt;
-                if (targetEntity.TimeUntilNextFire <= 0)
-                {
-                    targetEntity.TimeUntilNextFire += targetEntity.RateOfFire;
-                    //shift dir
-                    launcher.ShouldLaunch = true;
                 }
                 else
                 {
-                    launcher.ShouldLaunch = false;
+                    launcher.ShouldLaunch = true;
+
+                    var targetLTW = GetComponent<LocalToWorld>(targetEntity.Target);
+                    var targetPos = targetLTW.Position.xy;
+                    var toTarget = targetPos - ltw.Position.xy;
+                    launcher.TargetDirection = math.normalizesafe(toTarget);
                 }
-            }).ScheduleParallel();
+            }).WithoutBurst().Run();
         }
     }
 }
