@@ -4,10 +4,11 @@ using Unity.Mathematics;
 namespace Charly.Data
 {
     [GenerateAuthoringComponent]
-    public struct Gun : IComponentData
+    public struct Launcher : IComponentData
     {
         public float InitialVelocityMagnitude;
         public Entity ProjectileOrigin;
-        public Entity BulletPrefab;
+        public Entity ProjectilePrefab;
+        public bool ShouldLaunch;
     }
 }

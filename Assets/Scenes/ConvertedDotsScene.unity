@@ -123,6 +123,68 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &189967008
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7151536348930845019, guid: d9d0c9e7edd17dd49a944208898fe8c3, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7151536348930845019, guid: d9d0c9e7edd17dd49a944208898fe8c3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -5.5856686
+      objectReference: {fileID: 0}
+    - target: {fileID: 7151536348930845019, guid: d9d0c9e7edd17dd49a944208898fe8c3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.18662322
+      objectReference: {fileID: 0}
+    - target: {fileID: 7151536348930845019, guid: d9d0c9e7edd17dd49a944208898fe8c3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7151536348930845019, guid: d9d0c9e7edd17dd49a944208898fe8c3, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7151536348930845019, guid: d9d0c9e7edd17dd49a944208898fe8c3, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7151536348930845019, guid: d9d0c9e7edd17dd49a944208898fe8c3, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7151536348930845019, guid: d9d0c9e7edd17dd49a944208898fe8c3, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7151536348930845019, guid: d9d0c9e7edd17dd49a944208898fe8c3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7151536348930845019, guid: d9d0c9e7edd17dd49a944208898fe8c3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7151536348930845019, guid: d9d0c9e7edd17dd49a944208898fe8c3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7151536348930845031, guid: d9d0c9e7edd17dd49a944208898fe8c3, type: 3}
+      propertyPath: m_Name
+      value: Asteroid
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d9d0c9e7edd17dd49a944208898fe8c3, type: 3}
+--- !u!1 &189967009 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7151536348930845031, guid: d9d0c9e7edd17dd49a944208898fe8c3, type: 3}
+  m_PrefabInstance: {fileID: 189967008}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &214704136
 GameObject:
   m_ObjectHideFlags: 0
@@ -137,6 +199,7 @@ GameObject:
   - component: {fileID: 214704144}
   - component: {fileID: 214704145}
   - component: {fileID: 214704137}
+  - component: {fileID: 214704141}
   m_Layer: 0
   m_Name: Ship
   m_TagString: Untagged
@@ -188,6 +251,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LocalRadius: 0.31
+--- !u!114 &214704141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 214704136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f256b60b28f4b8f99a10a653809fb56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Target: {fileID: 189967009}
+  RateOfFire: 1
+  TimeUntilNextFire: 0
 --- !u!114 &214704142
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -216,7 +294,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InitialVelocityMagnitude: 2
   ProjectileOrigin: {fileID: 1415987295}
-  BulletPrefab: {fileID: 8804125953143366831, guid: 6fbd8b72336278c4dbb37c072cf5bad9, type: 3}
+  ProjectilePrefab: {fileID: 8804125953143366831, guid: 6fbd8b72336278c4dbb37c072cf5bad9, type: 3}
+  ShouldLaunch: 0
 --- !u!114 &214704145
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -249,7 +328,7 @@ GameObject:
   - component: {fileID: 399574783}
   - component: {fileID: 399574782}
   m_Layer: 0
-  m_Name: Capsule
+  m_Name: Hull Main
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -391,7 +470,7 @@ GameObject:
   - component: {fileID: 1260928163}
   - component: {fileID: 1260928162}
   m_Layer: 0
-  m_Name: Capsule (01)
+  m_Name: Hull Highlight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -620,7 +699,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1415987296}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: LauncherOrigin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -634,7 +713,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1415987295}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.333, z: 0}
+  m_LocalPosition: {x: 0, y: 0.48, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 214704138}
