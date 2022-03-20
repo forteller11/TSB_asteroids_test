@@ -1,4 +1,6 @@
+using Unity.Collections;
 using Unity.Entities;
+using UnityEngine;
 
 namespace Charly.Data
 {
@@ -6,5 +8,6 @@ namespace Charly.Data
     public struct Destructible : IComponentData
     {
         public Mask DestroyedBy;
+        public bool BeingDestroyed;
     }
 }
