@@ -45,9 +45,14 @@ namespace Charly.Systems
             {
                 controls.Movement = _controlsAsset.Game.Thrust.ReadValue<float>();
                 controls.Turn = _controlsAsset.Game.Turn.ReadValue<float>();
+                
                 controls.Primary.IsDown = _controlsAsset.Game.PrimaryAction.IsPressed();
                 controls.Primary.PressedThisTick = _controlsAsset.Game.PrimaryAction.WasPressedThisFrame();
                 controls.Primary.ReleasedThisTick = _controlsAsset.Game.PrimaryAction.WasReleasedThisFrame();
+                
+                controls.Secondary.IsDown = _controlsAsset.Game.SecondaryAction.IsPressed();
+                controls.Secondary.PressedThisTick = _controlsAsset.Game.SecondaryAction.WasPressedThisFrame();
+                controls.Secondary.ReleasedThisTick = _controlsAsset.Game.SecondaryAction.WasReleasedThisFrame();
                 
                 SetSingleton(controls);
             }

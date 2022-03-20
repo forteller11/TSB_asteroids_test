@@ -53,6 +53,15 @@ public partial class @MainControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SecondaryAction"",
+                    ""type"": ""Button"",
+                    ""id"": ""11449ee2-ba10-4d8e-9913-72bae35db1ec"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -198,6 +207,39 @@ public partial class @MainControls : IInputActionCollection2, IDisposable
                     ""action"": ""Thrust"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4cdc9f27-d5fd-4c98-89e3-49e3f9bcca9a"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SecondaryAction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e540b812-54e8-41de-a370-b2fc63b5f0bb"",
+                    ""path"": ""<Keyboard>/alt"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SecondaryAction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""685b0e2a-db11-422e-bc67-168c289c87b5"",
+                    ""path"": ""<Keyboard>/ctrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SecondaryAction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -215,6 +257,7 @@ public partial class @MainControls : IInputActionCollection2, IDisposable
         m_Game_Thrust = m_Game.FindAction("Thrust", throwIfNotFound: true);
         m_Game_Turn = m_Game.FindAction("Turn", throwIfNotFound: true);
         m_Game_PrimaryAction = m_Game.FindAction("PrimaryAction", throwIfNotFound: true);
+        m_Game_SecondaryAction = m_Game.FindAction("SecondaryAction", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -277,6 +320,7 @@ public partial class @MainControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_Game_Thrust;
     private readonly InputAction m_Game_Turn;
     private readonly InputAction m_Game_PrimaryAction;
+    private readonly InputAction m_Game_SecondaryAction;
     public struct GameActions
     {
         private @MainControls m_Wrapper;
@@ -284,6 +328,7 @@ public partial class @MainControls : IInputActionCollection2, IDisposable
         public InputAction @Thrust => m_Wrapper.m_Game_Thrust;
         public InputAction @Turn => m_Wrapper.m_Game_Turn;
         public InputAction @PrimaryAction => m_Wrapper.m_Game_PrimaryAction;
+        public InputAction @SecondaryAction => m_Wrapper.m_Game_SecondaryAction;
         public InputActionMap Get() { return m_Wrapper.m_Game; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -302,6 +347,9 @@ public partial class @MainControls : IInputActionCollection2, IDisposable
                 @PrimaryAction.started -= m_Wrapper.m_GameActionsCallbackInterface.OnPrimaryAction;
                 @PrimaryAction.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnPrimaryAction;
                 @PrimaryAction.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnPrimaryAction;
+                @SecondaryAction.started -= m_Wrapper.m_GameActionsCallbackInterface.OnSecondaryAction;
+                @SecondaryAction.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnSecondaryAction;
+                @SecondaryAction.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnSecondaryAction;
             }
             m_Wrapper.m_GameActionsCallbackInterface = instance;
             if (instance != null)
@@ -315,6 +363,9 @@ public partial class @MainControls : IInputActionCollection2, IDisposable
                 @PrimaryAction.started += instance.OnPrimaryAction;
                 @PrimaryAction.performed += instance.OnPrimaryAction;
                 @PrimaryAction.canceled += instance.OnPrimaryAction;
+                @SecondaryAction.started += instance.OnSecondaryAction;
+                @SecondaryAction.performed += instance.OnSecondaryAction;
+                @SecondaryAction.canceled += instance.OnSecondaryAction;
             }
         }
     }
@@ -333,5 +384,6 @@ public partial class @MainControls : IInputActionCollection2, IDisposable
         void OnThrust(InputAction.CallbackContext context);
         void OnTurn(InputAction.CallbackContext context);
         void OnPrimaryAction(InputAction.CallbackContext context);
+        void OnSecondaryAction(InputAction.CallbackContext context);
     }
 }

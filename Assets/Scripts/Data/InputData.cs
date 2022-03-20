@@ -8,6 +8,7 @@ namespace Charly.Data
         public float Movement;
         public float Turn;
         public StatefulButton Primary;
+        public StatefulButton Secondary;
 
 
         public override string ToString()
