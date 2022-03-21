@@ -5,11 +5,11 @@ namespace Charly.Data
     [GenerateAuthoringComponent]
     public struct Destroyer : IComponentData
     {
-        public Mask Mask;
+        public Mask TypeOfObject;
 
         public Destroyer(Mask destroy)
         {
-            Mask = destroy;
+            TypeOfObject = destroy;
         }
     }
 }

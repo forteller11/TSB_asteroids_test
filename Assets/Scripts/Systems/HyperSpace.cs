@@ -22,7 +22,7 @@ namespace Charly.Systems
                 return;
             }
 
-            Entities.ForEach((ref Translation translation, ref ShipMovement ship, ref RandomState randomState) =>
+            Entities.WithAll<ShipMovement>().ForEach((ref Translation translation, ref RandomState randomState) =>
             {
                 if (!input.Secondary.PressedThisTick)
                     return;

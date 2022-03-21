@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 999894935237053105}
   - component: {fileID: 1427416524207959231}
   - component: {fileID: 8236962519161132643}
+  - component: {fileID: 6228417141255099320}
   m_Layer: 0
   m_Name: BulletUFO
   m_TagString: Untagged
@@ -49,7 +50,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96107d9ecd0a47d48aedb9e967dac6d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Mask: 20
+  TypeOfObject: 33
 --- !u!114 &2991254021971353045
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -143,7 +144,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a2818415d7641298a681b410d911a67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DestroyedBy: 20
+  DestroyedByAny: 6
+  DestroyedByAll: 0
   BeingDestroyed: 0
 --- !u!114 &8236962519161132643
 MonoBehaviour:
@@ -158,3 +160,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LifeSpanInSeconds: 2
+--- !u!114 &6228417141255099320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8804125953143366831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f523f714a2784dba85c39fe3c5c2d78f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ToSpawns:
+  - {fileID: 7151536348930845031, guid: 4e90490243da93546baf82b1bb51f0a5, type: 3}
+  - {fileID: 7151536348930845031, guid: 4e90490243da93546baf82b1bb51f0a5, type: 3}
+  - {fileID: 7151536348930845031, guid: 4e90490243da93546baf82b1bb51f0a5, type: 3}
+  InitialLinearVelocity:
+    Min: 1.15
+    Max: 2.36
+  InitialAngularVelocity:
+    Min: 0.01
+    Max: 0.1

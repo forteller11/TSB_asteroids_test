@@ -81,7 +81,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a2818415d7641298a681b410d911a67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DestroyedBy: 34
+  DestroyedByAny: 32
+  DestroyedByAll: 0
   BeingDestroyed: 0
 --- !u!23 &-2858220087061161265
 MeshRenderer:
@@ -144,7 +145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96107d9ecd0a47d48aedb9e967dac6d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Mask: 4
+  TypeOfObject: 4
 --- !u!114 &-5837191853704751765
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -160,4 +161,9 @@ MonoBehaviour:
   ToSpawns:
   - {fileID: 7151536348930845031, guid: d9d0c9e7edd17dd49a944208898fe8c3, type: 3}
   - {fileID: 7151536348930845031, guid: d9d0c9e7edd17dd49a944208898fe8c3, type: 3}
-  InitialVelocityMag: 0.2
+  InitialLinearVelocity:
+    Min: 0.1
+    Max: 1
+  InitialAngularVelocity:
+    Min: 0.01
+    Max: 0.1

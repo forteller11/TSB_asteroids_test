@@ -2,20 +2,16 @@ namespace Charly.Common.Utils
 {
     public static class MaskUtils
     {
-        public static bool ContainsFlags(int field, int mask)
+        public static bool ContainsAtLeastOneFlag(int value, int mask)
         {
-            int bitwiseAnd = field & mask;
-            if (bitwiseAnd != 0)
-                return true;
-            return false;
+            int bitwiseAnd = value & mask;
+            return bitwiseAnd != 0;
         }
         
-        public static bool HasAllFlags(int self, int other)
+        public static bool HasAllFlags(int value, int mask)
         {
-            int bitwiseAnd = self & other;
-            if (bitwiseAnd == self)
-                return true;
-            return false;
+            int bitwiseAnd = value & mask;
+            return bitwiseAnd == value;
         }
     }
 }

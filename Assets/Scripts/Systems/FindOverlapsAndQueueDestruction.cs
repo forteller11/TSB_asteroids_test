@@ -19,7 +19,13 @@ namespace Charly.Systems
                         if (destroyers.HasComponent(overlap.Other))
                         {
                             var bullet = destroyers[overlap.Other];
-                            if (MaskUtils.HasAllFlags((int)bullet.Mask,(int)destructible.DestroyedBy))
+                            if (MaskUtils.HasAllFlags((int)bullet.TypeOfObject,(int)destructible.DestroyedByAll))
+                            {
+                                destructible.BeingDestroyed = true;
+                                return;
+                            }
+                            
+                            if (MaskUtils.ContainsAtLeastOneFlag((int)bullet.TypeOfObject,(int)destructible.DestroyedByAny))
                             {
                                 destructible.BeingDestroyed = true;
                                 return;
@@ -27,7 +33,6 @@ namespace Charly.Systems
                         }
                     }
                 })
-                .WithoutBurst()
                 .WithReadOnly(destroyers)
                 .ScheduleParallel();
         }

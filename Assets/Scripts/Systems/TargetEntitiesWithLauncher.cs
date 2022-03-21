@@ -13,9 +13,10 @@ namespace Charly.Data
         {
             Entities.ForEach((ref Launcher launcher, ref Rotation rotation, in LocalToParent lwp, in LocalToWorld ltw, in CounterState counter, in TargetEntity targetEntity) =>
             {
-                if (targetEntity.Target == Entity.Null ||
-                    !World.EntityManager.Exists(targetEntity.Target) ||
-                    !counter.FinishedThisFrame)
+                
+                if (!counter.FinishedThisFrame ||
+                    targetEntity.Target == Entity.Null ||
+                    !HasComponent<LocalToWorld>(targetEntity.Target))
                 {
                     launcher.ShouldLaunch = false;
                 }
@@ -28,7 +29,7 @@ namespace Charly.Data
                     var toTarget = targetPos - ltw.Position.xy;
                     launcher.TargetDirection = math.normalizesafe(toTarget);
                 }
-            }).WithoutBurst().Run();
+            }).ScheduleParallel();
         }
     }
 }
