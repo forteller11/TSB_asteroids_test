@@ -18,7 +18,7 @@ namespace Charly.Systems
                 return;
             }
 
-            //todo [Perf] look into avoiding branching in favour of modulo operator or other workarounds if this ever becomes a perf problem
+            //todo [Performance] look into avoiding branching in favour of modulo operator or other workarounds if this ever becomes a perf problem
             Entities.ForEach((Entity entity, ref Translation translation) =>
             {
                 float2 halfSize = float2.zero;

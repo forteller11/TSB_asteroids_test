@@ -15,12 +15,8 @@ namespace Systems
         }
         protected override void OnUpdate()
         {
-            //todo get all overlaps.....
-            //todo avoid closest overlaps...
-            //todo otherwise.... go in desired direction
-
-            var query = GetEntityQuery(ComponentType.ReadOnly<ColliderData>(), ComponentType.ReadOnly<LocalToWorld>(), ComponentType.ReadOnly<Destroyer>());
-            var obstacles =  query.ToEntityArrayAsync(Allocator.TempJob, out var entitiesJob);
+            var obstaclesQuery = GetEntityQuery(ComponentType.ReadOnly<ColliderData>(), ComponentType.ReadOnly<LocalToWorld>(), ComponentType.ReadOnly<Destroyer>());
+            var obstacles =  obstaclesQuery.ToEntityArrayAsync(Allocator.TempJob, out var entitiesJob);
             var dt = Time.DeltaTime;
             
             Dependency = Entities.ForEach((Entity entity, ref FlockingState flockingState, ref Velocity2D velocity2D, in LocalToWorld ltw, in Destructible destructible) => 
@@ -48,7 +44,6 @@ namespace Systems
                     float approxRadius = collider.GetApproximateRadius();
                     distanceSq -= approxRadius * approxRadius;
                     
-
                     if (distanceSq < closestDistSq)
                     {
                         closestDistSq = distanceSq;

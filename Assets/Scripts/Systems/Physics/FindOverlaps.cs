@@ -36,9 +36,6 @@ namespace Charly.Systems
             //IMPORTANT: in order for this to parallel AND deterministic, no responses can (or writes of any kind) can occur here.
             Dependency = Entities.ForEach((Entity currentEntity, int entityInQueryIndex, in ColliderData collider, in LocalToWorld ltw) =>
                 {
-                    // var existingOverlapEvents = GetBuffer<OverlapEventBuffer>(currentEntity);
-                    // if (existingOverlapEvents.Length > 0)
-                    
                     commandBufferConcurrent.SetBuffer<OverlapEventBuffer>(entityInQueryIndex, currentEntity);
                     
                     foreach (var otherEntity in entities)

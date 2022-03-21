@@ -22,8 +22,6 @@ namespace Charly.Systems
 
             Entities.ForEach((ref Velocity2D velocity, in PhysicsProperties physicsProperties) =>
             {
-                //todo deal with mag, not componenets seperately
- 
                 var draggedLinearVelocity = velocity.Linear * physicsProperties.LinearDrag;
                 var draggedLinearVelocityTimeAdjusted = math.lerp(velocity.Linear, draggedLinearVelocity, deltaFromAverageDT);
                 velocity.Linear = draggedLinearVelocityTimeAdjusted;
