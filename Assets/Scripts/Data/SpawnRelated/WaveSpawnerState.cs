@@ -29,7 +29,6 @@ namespace Charly.Data
     }
     
     //can hold 5 waves
-    [GenerateAuthoringComponent]
     public struct WaveSpawnerState : IComponentData
     {
         public FixedList4096<SpawnWaveData> Waves;

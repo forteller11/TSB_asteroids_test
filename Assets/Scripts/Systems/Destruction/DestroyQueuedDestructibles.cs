@@ -30,11 +30,12 @@ namespace Charly.Systems
                 {
                     if (destructible.BeingDestroyed)
                     {
-                        commandBufferConcurrent2.DestroyEntity(entityInQueryIndex, currentEntity);
                         foreach (var child in children)
                         {
                             commandBufferConcurrent2.DestroyEntity(entityInQueryIndex, child.Value);
                         }
+                        commandBufferConcurrent2.DestroyEntity(entityInQueryIndex, currentEntity);
+
                     }
 
                 })

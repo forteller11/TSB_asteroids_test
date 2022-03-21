@@ -113,7 +113,7 @@ MonoBehaviour:
   - {fileID: 7151536348930845031, guid: d9d0c9e7edd17dd49a944208898fe8c3, type: 3}
   InitialLinearVelocity:
     Min: 0.1
-    Max: 1
+    Max: 0.37
   InitialAngularVelocity:
     Min: 0.01
     Max: 0.1

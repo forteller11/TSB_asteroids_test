@@ -16,5 +16,5 @@ MonoBehaviour:
   SpawnChancePerSecondNormalized: 3
   Enemies:
   - Prefab: {fileID: 7151536348930845031, guid: d9d0c9e7edd17dd49a944208898fe8c3, type: 3}
-  - Prefab: {fileID: 7151536348930845031, guid: d9d0c9e7edd17dd49a944208898fe8c3, type: 3}
+  - Prefab: {fileID: 7151536348930845031, guid: 4a8118d5ed8b02f489ae0cf9678e5aa7, type: 3}
   - Prefab: {fileID: 7151536348930845031, guid: d9d0c9e7edd17dd49a944208898fe8c3, type: 3}

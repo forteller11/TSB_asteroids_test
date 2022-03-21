@@ -67,7 +67,7 @@ namespace Charly.Authoring
                             Debug.LogError($"Primary Entity of {authoring.Target} is null at {nameof(LauncherAuthoring)}");
                         
                         DstEntityManager.AddComponentData(entity, new TargetEntity(){Target = targetEntity});
-                        DstEntityManager.AddComponentData(entity, new CounterState(){MaxTime = authoring.RateOfFire});
+                        DstEntityManager.AddComponentData(entity, new CounterState(){MaxTime = authoring.RateOfFire, CurrentCount = authoring.RateOfFire});
                         break;
                     }
                     default:
