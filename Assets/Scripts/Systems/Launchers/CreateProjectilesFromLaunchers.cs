@@ -10,16 +10,16 @@ namespace Charly.Systems
     [UpdateBefore(typeof(TransformSystemGroup))]
     public class CreateProjectilesFromLaunchers : SystemBase
     {
-        private EndSimulationEntityCommandBufferSystem _endSimECBSystem;
+        private EndSimulationEntityCommandBufferSystem _endSimulationECB;
         
         protected override void OnCreate()
         {
-            _endSimECBSystem = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
+            _endSimulationECB = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
         }
 
         protected override void OnUpdate()
         {
-            var commandBuffer = _endSimECBSystem.CreateCommandBuffer().AsParallelWriter();
+            var commandBuffer = _endSimulationECB.CreateCommandBuffer().AsParallelWriter();
             
             Entities.ForEach((Entity entity, int entityInQueryIndex, in Launcher launcher, in LocalToWorld ltw) =>
             {
@@ -42,7 +42,7 @@ namespace Charly.Systems
                 commandBuffer.SetComponent(entityInQueryIndex, newProjectile, new Velocity2D(initialVelocity, 0));
             }).ScheduleParallel();
             
-            _endSimECBSystem.AddJobHandleForProducer(Dependency);
+            _endSimulationECB.AddJobHandleForProducer(Dependency);
         }
     }
 }

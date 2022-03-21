@@ -8,15 +8,15 @@ namespace Charly.Systems
     [UpdateAfter(typeof(FindOverlapsAndQueueDestruction))]
     public class DestroyQueuedDestructibles : SystemBase
     {
-        private EndSimulationEntityCommandBufferSystem _endSimulationECBSystem; 
+        private BeginPresentationEntityCommandBufferSystem _beginPresentationECBSystem; 
         protected override void OnCreate()
         {
-            _endSimulationECBSystem = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
+            _beginPresentationECBSystem = World.GetOrCreateSystem<BeginPresentationEntityCommandBufferSystem>();
         }
         
         protected override void OnUpdate()
         {
-            var commandBufferConcurrent1 = _endSimulationECBSystem.CreateCommandBuffer().AsParallelWriter();
+            var commandBufferConcurrent1 = _beginPresentationECBSystem.CreateCommandBuffer().AsParallelWriter();
             Entities.ForEach((Entity currentEntity, int entityInQueryIndex, in Destructible destructible) =>
                 {
                     if (destructible.BeingDestroyed)
@@ -25,7 +25,7 @@ namespace Charly.Systems
                 })
                 .ScheduleParallel();
             
-            var commandBufferConcurrent2 = _endSimulationECBSystem.CreateCommandBuffer().AsParallelWriter();
+            var commandBufferConcurrent2 = _beginPresentationECBSystem.CreateCommandBuffer().AsParallelWriter();
             Entities.ForEach((Entity currentEntity, int entityInQueryIndex, in Destructible destructible, in DynamicBuffer<Child> children) =>
                 {
                     if (destructible.BeingDestroyed)
@@ -40,7 +40,7 @@ namespace Charly.Systems
                 })
                 .ScheduleParallel();
                     
-            _endSimulationECBSystem.AddJobHandleForProducer(Dependency);
+            _beginPresentationECBSystem.AddJobHandleForProducer(Dependency);
         }
     }
 }
