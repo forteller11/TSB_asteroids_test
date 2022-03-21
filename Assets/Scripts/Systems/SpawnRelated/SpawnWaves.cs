@@ -8,22 +8,18 @@ namespace Charly.Systems
 {
     public class SpawnWaves : SystemBase
     {
-        private BeginSimulationEntityCommandBufferSystem _endSimulationECBSystem;
+        private BeginSimulationEntityCommandBufferSystem _beginSimulationECBSystem;
 
         protected override void OnCreate()
         {
-            _endSimulationECBSystem = World.GetOrCreateSystem<BeginSimulationEntityCommandBufferSystem>();
+            _beginSimulationECBSystem = World.GetOrCreateSystem<BeginSimulationEntityCommandBufferSystem>();
         }
 
         protected override void OnUpdate()
         {
-            if (!TryGetSingleton<WorldBounds>(out var worldBounds))
-            {
-                Debug.LogError("Could not get singleton");
-                return;
-            }
+            var worldBounds = GetSingleton<WorldBounds>();
             
-            var commandBuffer = _endSimulationECBSystem.CreateCommandBuffer();
+            var commandBuffer = _beginSimulationECBSystem.CreateCommandBuffer();
             var dt = World.Time.DeltaTime;
 
             Entities.ForEach((Entity entity, ref RandomState random, ref WaveSpawnerState spawnState) =>
@@ -86,10 +82,10 @@ namespace Charly.Systems
                     spawnState.Waves[spawnState.WaveIndex] = currentWave;
                     Debug.Log($"Spawn I:{enemyToSpawn.Prefab.Index}, V:{enemyToSpawn.Prefab.Version}");
                 })
-                .Schedule();
+                .WithoutBurst().Run();
             
 
-            _endSimulationECBSystem.AddJobHandleForProducer(Dependency);
+            _beginSimulationECBSystem.AddJobHandleForProducer(Dependency);
         }
     }
 }
