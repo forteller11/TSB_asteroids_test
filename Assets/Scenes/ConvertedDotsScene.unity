@@ -378,10 +378,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2416894995798702123, guid: 09adcacd2cf6c8e4ca48f3ee50ed0fa8, type: 3}
-      propertyPath: Target
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 7151536348930845019, guid: 09adcacd2cf6c8e4ca48f3ee50ed0fa8, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -430,6 +426,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UFO
       objectReference: {fileID: 0}
+    - target: {fileID: 7480428740333866029, guid: 09adcacd2cf6c8e4ca48f3ee50ed0fa8, type: 3}
+      propertyPath: Target
+      value: 
+      objectReference: {fileID: 2047658849}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 09adcacd2cf6c8e4ca48f3ee50ed0fa8, type: 3}
 --- !u!1001 &977260454
@@ -690,3 +690,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 906c11237c9eb9340ad0403ada4a3080, type: 3}
+--- !u!1 &2047658849 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5914981877136152173, guid: 906c11237c9eb9340ad0403ada4a3080, type: 3}
+  m_PrefabInstance: {fileID: 2047658848}
+  m_PrefabAsset: {fileID: 0}

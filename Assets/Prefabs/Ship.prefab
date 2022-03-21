@@ -360,15 +360,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 5914981878606640698}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d7221de6396490d93d540311448c8de, type: 3}
+  m_Script: {fileID: 11500000, guid: 86148d256c65420bb584e3691ed7f91a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   InitialVelocityMagnitude: 10
-  ProjectilePrefab: {fileID: 8804125953143366831, guid: 6fbd8b72336278c4dbb37c072cf5bad9, type: 3}
-  TargetDirection:
-    x: 0
-    y: 0
-  ShouldLaunch: 0
+  BulletPrefab: {fileID: 8804125953143366831, guid: 6fbd8b72336278c4dbb37c072cf5bad9, type: 3}
+  DrivenBy: 0
+  RateOfFire: 0
+  Target: {fileID: 0}
 --- !u!114 &5914981878606640644
 MonoBehaviour:
   m_ObjectHideFlags: 0

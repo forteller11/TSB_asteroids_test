@@ -3,7 +3,6 @@ using Unity.Mathematics;
 
 namespace Charly.Data
 {
-    [GenerateAuthoringComponent]
     public struct Launcher : IComponentData
     {
         public float InitialVelocityMagnitude;
