@@ -28,7 +28,8 @@ namespace Systems
                     if (!destructible.BeingDestroyed)
                         return;
                     
-                    var random = new Random((uint) (time + entityInQueryIndex));
+                    //6029 is a prime number, gaurentees never 0
+                    var random = new Random((uint) (time + entityInQueryIndex + 6029));
 
                     float angle = random.NextFloat(0, math.PI * 2);
                     float angleIncrement = (math.PI * 2) / spawnOnDestructionBuffer.Length;

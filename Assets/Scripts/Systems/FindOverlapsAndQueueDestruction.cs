@@ -1,9 +1,5 @@
-using System;
-using Charly.Common.Utils;
 using Charly.Data;
 using Unity.Entities;
-using Unity.Mathematics;
-using Unity.Transforms;
 
 namespace Charly.Systems
 {
@@ -18,17 +14,10 @@ namespace Charly.Systems
                     {
                         if (destroyers.HasComponent(overlap.Other))
                         {
-                            var bullet = destroyers[overlap.Other];
-                            if (MaskUtils.HasAllFlags((int)bullet.TypeOfObject,(int)destructible.DestroyedByAll))
+                            var destroyer = destroyers[overlap.Other];
+                            if (destructible.IsDestroyedBy(destroyer.TypeOfObject))
                             {
                                 destructible.BeingDestroyed = true;
-                                return;
-                            }
-                            
-                            if (MaskUtils.ContainsAtLeastOneFlag((int)bullet.TypeOfObject,(int)destructible.DestroyedByAny))
-                            {
-                                destructible.BeingDestroyed = true;
-                                return;
                             }
                         }
                     }

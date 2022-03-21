@@ -77,7 +77,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentCount: 0
-  MaxTime: 1
+  MaxTime: 4
   FinishedThisFrame: 0
 --- !u!1 &5319587629231805096
 GameObject:
@@ -230,7 +230,7 @@ MonoBehaviour:
     y: 0
   AngularVelocity: 0
   Mass: 0.5
-  LinearConservation: 1
+  LinearConservation: 0.99
   AngularConservation: 1
 --- !u!114 &573636421837208820
 MonoBehaviour:
@@ -346,8 +346,8 @@ MonoBehaviour:
   DesiredDirection:
     x: 1
     y: 0
-  MaxVelocity: 0.5
-  MaxAcceleration: 0.05
-  detail:
-    x: 0
-    y: 0
+  DesiredDirectionChange: 0.05
+  MaxVelocity: 1.32
+  DefaultAcceleration: 0.81
+  AvoidanceAcceleration: 2.67
+  MiniumDistanceAway: 2.03

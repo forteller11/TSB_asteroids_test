@@ -7,9 +7,11 @@ namespace Charly.Data
     public struct FlockingState : IComponentData
     {
         public float2 DesiredDirection;
+        public float DesiredDirectionChange;
         public float MaxVelocity;
-        public float MaxAcceleration;
+        public float DefaultAcceleration;
+        public float AvoidanceAcceleration;
 
-        public float2 detail;
+        public float MiniumDistanceAway;
     }
 }
