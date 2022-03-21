@@ -20,8 +20,7 @@ namespace Systems
             var commandBuffer = _beginSimulationECBSystem.CreateCommandBuffer();
             
             //Only works for hierarchies of UP to 1 child deep, no more.
-            Entities.ForEach((Entity entity, int entityInQueryIndex, in ShipMovement ship,
-                in DynamicBuffer<OverlapEventBuffer> buffer, in DynamicBuffer<Child> children) =>
+            Entities.ForEach((Entity entity,in ShipMovement ship, in DynamicBuffer<OverlapEventBuffer> buffer, in DynamicBuffer<Child> children) =>
             {
                 foreach (var overlap in buffer)
                 {

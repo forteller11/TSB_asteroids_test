@@ -14,10 +14,10 @@ GameObject:
   - component: {fileID: 573636421837208820}
   - component: {fileID: -7853744607559440664}
   - component: {fileID: -370538132337484596}
-  - component: {fileID: 1390288614742987052}
   - component: {fileID: 6364748953691023220}
+  - component: {fileID: 3547064871063441731}
   m_Layer: 0
-  m_Name: Asteroid_medium
+  m_Name: ShieldPowerUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,7 +32,7 @@ Transform:
   m_GameObject: {fileID: 7151536348930845031}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 0.16}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -81,7 +81,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a2818415d7641298a681b410d911a67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DestroyedByAny: 48
+  DestroyedByAny: 16
   DestroyedByAll: 0
   BeingDestroyed: 0
 --- !u!23 &-7853744607559440664
@@ -103,7 +103,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7f365c0a8b58c4d4894c99710a560325, type: 2}
+  - {fileID: 2100000, guid: f86e011bd16a1da49a39d07b8859e86c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -133,19 +133,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7151536348930845031}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1390288614742987052
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7151536348930845031}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96107d9ecd0a47d48aedb9e967dac6d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TypeOfObject: 4
 --- !u!114 &6364748953691023220
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -159,12 +146,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ToSpawns:
-  - {fileID: 7151536348930845031, guid: 4a8118d5ed8b02f489ae0cf9678e5aa7, type: 3}
-  - {fileID: 7151536348930845031, guid: 4a8118d5ed8b02f489ae0cf9678e5aa7, type: 3}
-  - {fileID: 7151536348930845031, guid: 4a8118d5ed8b02f489ae0cf9678e5aa7, type: 3}
+  - {fileID: 7151536348930845031, guid: 2711cc920ea088549b93398ac7f6535d, type: 3}
+  - {fileID: 7151536348930845031, guid: 2711cc920ea088549b93398ac7f6535d, type: 3}
+  - {fileID: 7151536348930845031, guid: 2711cc920ea088549b93398ac7f6535d, type: 3}
   InitialLinearVelocity:
     Min: 0.1
     Max: 1
   InitialAngularVelocity:
     Min: 0.01
     Max: 0.1
+--- !u!114 &3547064871063441731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7151536348930845031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c8adc7b0fe84b2db7f03738e94a70d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Active: 0
