@@ -5,6 +5,7 @@ namespace Charly.Data
 {
     public struct PhysicsProperties : IComponentData
     {
+        //Note: Mass is not currently used in any calculations
         public float Mass { get; private set; }
         public float InverseMass { get; private set; }
         
