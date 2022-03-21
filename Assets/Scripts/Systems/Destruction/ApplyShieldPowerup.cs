@@ -23,9 +23,9 @@ namespace Systems
             {
                 foreach (var overlap in buffer)
                 {
-                    if (HasComponent<ShieldPowerup>(overlap.Other))
+                    if (HasComponent<ShieldTag>(overlap.Other))
                     {
-                        commandBuffer.AddComponent(entity, new ShieldPowerup());
+                        commandBuffer.AddComponent(entity, new ShieldTag());
                     }
                 }
 

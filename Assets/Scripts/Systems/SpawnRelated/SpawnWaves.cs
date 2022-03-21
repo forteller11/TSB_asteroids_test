@@ -8,11 +8,11 @@ namespace Charly.Systems
 {
     public class SpawnWaves : SystemBase
     {
-        private EndSimulationEntityCommandBufferSystem _endSimulationECBSystem;
+        private BeginSimulationEntityCommandBufferSystem _endSimulationECBSystem;
 
         protected override void OnCreate()
         {
-            _endSimulationECBSystem = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
+            _endSimulationECBSystem = World.GetOrCreateSystem<BeginSimulationEntityCommandBufferSystem>();
         }
 
         protected override void OnUpdate()
@@ -72,7 +72,11 @@ namespace Charly.Systems
                     var newEnemy = commandBuffer.Instantiate(enemyToSpawn.Prefab);
                     
                     var randomPosition = random.Value.NextFloat2(worldBounds.Value.MinExtents, worldBounds.Value.MaxExtents);
-                    commandBuffer.AddComponent(newEnemy, new Translation() { Value = new float3(randomPosition, 0) });
+                    var translation = new Translation() { Value = new float3(randomPosition, 0) };
+                    var ltw = new LocalToWorld() { Value = float4x4.Translate(translation.Value) };
+                    commandBuffer.AddComponent(newEnemy, translation);
+                    
+                    commandBuffer.AddComponent(newEnemy, ltw);
                     
                     commandBuffer.AddComponent(newEnemy, new Spawned(entity, spawnState.WaveIndex));
 
@@ -80,7 +84,7 @@ namespace Charly.Systems
                     currentWave.EnemyIndex++;
                     
                     spawnState.Waves[spawnState.WaveIndex] = currentWave;
-                    Debug.Log($"Spawn {enemyToSpawn.Prefab}");
+                    Debug.Log($"Spawn I:{enemyToSpawn.Prefab.Index}, V:{enemyToSpawn.Prefab.Version}");
                 })
                 .Schedule();
             

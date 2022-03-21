@@ -25,9 +25,9 @@ namespace Charly.Systems
                         {
                             var destroyer = destroyers[overlap.Other];
 
-                            if (HasComponent<ShieldPowerup>(currentEntity))
+                            if (HasComponent<ShieldTag>(currentEntity))
                             {
-                                commandBuffer.RemoveComponent<ShieldPowerup>(entityInQueryIndex, currentEntity);
+                                commandBuffer.RemoveComponent<ShieldTag>(entityInQueryIndex, currentEntity);
                                 return;
                             }
                             
