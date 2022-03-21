@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace Charly.Systems
 {
+    //so that positions are updated
     [UpdateBefore(typeof(TransformSystemGroup))]
     public class CreateProjectilesFromLaunchers : SystemBase
     {
@@ -28,6 +29,11 @@ namespace Charly.Systems
                 var newProjectile = commandBuffer.Instantiate(entityInQueryIndex, launcher.ProjectilePrefab);
 
                 commandBuffer.SetComponent(entityInQueryIndex, newProjectile, new Translation {Value = ltw.Position});
+                
+                //If we don't see the localtoWorld manually to ROUGHLY the right position it appears at (0,0,0) in the world for a single frame
+                //This occurs even if this system updates before the transform system group occurs... not sure why
+                var matrix = math.float4x4(quaternion.identity, ltw.Position);
+                commandBuffer.SetComponent(entityInQueryIndex, newProjectile, new LocalToWorld(){Value = matrix});
 
                 float2 initialVelocity = new float2(0);
                 if (HasComponent<Velocity2D>(entity))
