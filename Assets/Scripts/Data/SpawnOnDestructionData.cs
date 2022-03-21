@@ -1,3 +1,4 @@
+using Common.Structures;
 using Unity.Entities;
 
 namespace Charly.Data
@@ -6,12 +7,14 @@ namespace Charly.Data
     public struct SpawnOnDestructionData : IBufferElementData
     {
         public Entity Entity;
-        public float VelocityMagnitude;
+        public FloatRange LinearVelocity;
+        public FloatRange AngularVelocity;
 
-        public SpawnOnDestructionData(Entity entity, float velocityMagnitude)
+        public SpawnOnDestructionData(Entity entity, FloatRange linearVelocityRange, FloatRange angularVelocityRange)
         {
             Entity = entity;
-            VelocityMagnitude = velocityMagnitude;
+            LinearVelocity = linearVelocityRange;
+            AngularVelocity = angularVelocityRange;
         }
     }
 }

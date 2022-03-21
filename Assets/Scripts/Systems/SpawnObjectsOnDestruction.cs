@@ -22,21 +22,38 @@ namespace Systems
         {
             var commandBufferConcurrent = _endSimECBSystem.CreateCommandBuffer().AsParallelWriter();
             double time = Time.ElapsedTime;
-            Entities.ForEach((Entity currentEntity, int entityInQueryIndex,
-                    DynamicBuffer<SpawnOnDestructionData> spawnOnDestructionBuffer, in Destructible destructible,
-                    in Translation translation) =>
+            
+            Entities.ForEach((Entity currentEntity, int entityInQueryIndex, DynamicBuffer<SpawnOnDestructionData> spawnOnDestructionBuffer, in Destructible destructible, in Translation translation) =>
                 {
                     if (!destructible.BeingDestroyed)
                         return;
+                    
+                    var random = new Random((uint) (time + entityInQueryIndex));
+
+                    float angle = random.NextFloat(0, math.PI * 2);
+                    float angleIncrement = (math.PI * 2) / spawnOnDestructionBuffer.Length;
+                    float angleMaxJitter = angleIncrement / 2;
 
                     foreach (var toSpawn in spawnOnDestructionBuffer)
                     {
                         var newlySpawned = commandBufferConcurrent.Instantiate(entityInQueryIndex, toSpawn.Entity);
                         commandBufferConcurrent.AddComponent(entityInQueryIndex, newlySpawned, new Translation { Value = translation.Value });
 
-                        //todo [bug] set random direction, use RandomState?
-                        var initialVelocity = noise.pnoise(new float2((float)time, (float)time + entityInQueryIndex), new float2(100)) * toSpawn.VelocityMagnitude;
-                        commandBufferConcurrent.AddComponent(entityInQueryIndex, newlySpawned, new Velocity2D { Linear = initialVelocity });
+                        float angleWithJitter = angle + random.NextFloat(-angleMaxJitter, angleMaxJitter);
+                        angle += angleIncrement;
+                        float2 dir = new float2(math.cos(angleWithJitter), math.sin(angleWithJitter));
+                        float velocityMagnitude = toSpawn.LinearVelocity.NextRandom(ref random);
+                        float2 initialLinearVelocity = dir * velocityMagnitude;
+
+                        float initialAngularVelocity = toSpawn.AngularVelocity.NextRandom(ref random);
+                        if (random.NextBool())
+                            initialAngularVelocity *= -1;
+                        
+                        commandBufferConcurrent.AddComponent(entityInQueryIndex, newlySpawned, new Velocity2D
+                        {
+                            Linear = initialLinearVelocity , 
+                            Angular = initialAngularVelocity
+                        });
                     }
                 })
                 .ScheduleParallel();

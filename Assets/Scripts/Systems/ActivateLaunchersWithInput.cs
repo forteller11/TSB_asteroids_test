@@ -1,5 +1,6 @@
 using Charly.Data;
 using Unity.Entities;
+using Unity.Transforms;
 using UnityEngine;
 
 namespace Charly.Systems
@@ -14,9 +15,10 @@ namespace Charly.Systems
                 return;
             }
 
-            Entities.WithAll<InputDrivenTag>().ForEach((ref Launcher launchers, in InputDrivenTag tag) =>
+            Entities.WithAll<InputDrivenTag>().ForEach((ref Launcher launchers, in LocalToWorld ltw) =>
             {
                 launchers.ShouldLaunch = input.Primary.PressedThisTick;
+                launchers.TargetDirection = ltw.Up.xy;
             }).ScheduleParallel();
         }
     }
