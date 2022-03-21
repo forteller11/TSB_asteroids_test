@@ -19,7 +19,7 @@ namespace Systems
             //todo avoid closest overlaps...
             //todo otherwise.... go in desired direction
 
-            var query = GetEntityQuery(ComponentType.ReadOnly<Collider2D>(), ComponentType.ReadOnly<LocalToWorld>(), ComponentType.ReadOnly<Destroyer>());
+            var query = GetEntityQuery(ComponentType.ReadOnly<ColliderData>(), ComponentType.ReadOnly<LocalToWorld>(), ComponentType.ReadOnly<Destroyer>());
             var obstacles =  query.ToEntityArrayAsync(Allocator.TempJob, out var entitiesJob);
             var dt = Time.DeltaTime;
             
@@ -43,7 +43,7 @@ namespace Systems
                     
                     var otherPos = GetComponent<LocalToWorld>(obstacle).Position.xy;
                     float distanceSq = math.distancesq(ltw.Position.xy, otherPos);
-                    var collider = GetComponent<Collider2D>(obstacle);
+                    var collider = GetComponent<ColliderData>(obstacle);
                     
                     float approxRadius = collider.GetApproximateRadius();
                     distanceSq -= approxRadius * approxRadius;

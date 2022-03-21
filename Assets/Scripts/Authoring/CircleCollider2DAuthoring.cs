@@ -25,7 +25,7 @@ namespace Charly.Authoring
             {
                 var entity = TryGetPrimaryEntity(authoring);
 
-                var data = new Charly.Data.Collider2D()
+                var data = new Charly.Data.ColliderData()
                 {
                     Type = ColliderType.Circle,
                     Radius = authoring.WorldRadius

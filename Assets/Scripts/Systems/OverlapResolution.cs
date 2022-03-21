@@ -2,7 +2,6 @@ using Charly.Data;
 using Unity.Entities;
 using Unity.Transforms;
 using UnityEngine;
-using Collider2D = Charly.Data.Collider2D;
 
 namespace Charly.Systems
 {

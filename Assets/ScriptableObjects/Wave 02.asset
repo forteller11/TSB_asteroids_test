@@ -15,7 +15,5 @@ MonoBehaviour:
   MaxObjectsInSimultaneousPlay: 3
   SpawnChancePerSecondNormalized: 0.5
   Enemies:
-  - Prefab: {fileID: 7151536348930845031, guid: 6292e834906e31d4186205ec5586e0cc, type: 3}
-  - Prefab: {fileID: 7151536348930845031, guid: 6292e834906e31d4186205ec5586e0cc, type: 3}
-  - Prefab: {fileID: 7151536348930845031, guid: 6292e834906e31d4186205ec5586e0cc, type: 3}
-  - Prefab: {fileID: 7151536348930845031, guid: 6292e834906e31d4186205ec5586e0cc, type: 3}
+  - Prefab: {fileID: 7151536348930845031, guid: 09adcacd2cf6c8e4ca48f3ee50ed0fa8, type: 3}
+  - Prefab: {fileID: 7151536348930845031, guid: 09adcacd2cf6c8e4ca48f3ee50ed0fa8, type: 3}

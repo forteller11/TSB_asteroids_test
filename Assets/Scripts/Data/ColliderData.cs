@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Charly.Data
 {
-    public struct Collider2D : IComponentData
+    public struct ColliderData : IComponentData
     {
         public ColliderType Type;
         public float Radius;
@@ -20,7 +20,6 @@ namespace Charly.Data
                 default:
                     // Debug.LogError($"Argument Out of range at {nameof(Collider2D)} with {nameof(Type)}: {Type}"); //cannot debug.log with burst compile enabled?
                     throw new ArgumentOutOfRangeException();
-                    return 0;
             }
         }
     }

@@ -6,7 +6,6 @@ using Unity.Jobs;
 using Unity.Mathematics;
 using Unity.Transforms;
 using UnityEngine;
-using Collider2D = Charly.Data.Collider2D;
 
 namespace Charly.Systems
 {
@@ -24,21 +23,24 @@ namespace Charly.Systems
         protected override void OnUpdate()
         {
             var query = GetEntityQuery(
-                ComponentType.ReadOnly<Collider2D>(), 
+                ComponentType.ReadOnly<ColliderData>(), 
                 ComponentType.ReadOnly<LocalToWorld>());
             
             var entities = query.ToEntityArrayAsync(Allocator.TempJob, out var entitiesJob);
             
-            var collidersFromEntity = GetComponentDataFromEntity<Collider2D>(true);
+            var collidersFromEntity = GetComponentDataFromEntity<ColliderData>(true);
             var ltwFromEntity = GetComponentDataFromEntity<LocalToWorld>(true);
 
             var commandBufferConcurrent = _endSimulationECBSystem.CreateCommandBuffer().AsParallelWriter();
             
             //IMPORTANT: in order for this to parallel AND deterministic, no responses can (or writes of any kind) can occur here.
-            Dependency = Entities.ForEach((Entity currentEntity, int entityInQueryIndex, in Collider2D collider, in LocalToWorld ltw) =>
+            Dependency = Entities.ForEach((Entity currentEntity, int entityInQueryIndex, in ColliderData collider, in LocalToWorld ltw) =>
                 {
-                    //todo [Performance] Only set this when necessary as I think it creates a lot of overhead in the _endSimulationECBSystem
+                    // var existingOverlapEvents = GetBuffer<OverlapEventBuffer>(currentEntity);
+                    // if (existingOverlapEvents.Length > 0)
+                    
                     commandBufferConcurrent.SetBuffer<OverlapEventBuffer>(entityInQueryIndex, currentEntity);
+                    
                     foreach (var otherEntity in entities)
                     {
                         if (currentEntity == otherEntity)

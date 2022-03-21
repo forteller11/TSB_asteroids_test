@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: -7853744607559440664}
   - component: {fileID: -370538132337484596}
   - component: {fileID: 208577121759174978}
+  - component: {fileID: 5556585136505770363}
   m_Layer: 0
   m_Name: BulletDebris
   m_TagString: Untagged
@@ -115,3 +116,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LifeSpanInSeconds: 1
+--- !u!114 &5556585136505770363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7151536348930845031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a2818415d7641298a681b410d911a67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DestroyedByAny: 0
+  DestroyedByAll: 0
+  BeingDestroyed: 0

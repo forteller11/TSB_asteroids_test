@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Wave 01
   m_EditorClassIdentifier: 
   MaxObjectsInSimultaneousPlay: 5
-  SpawnChancePerSecondNormalized: 1
+  SpawnChancePerSecondNormalized: 3
   Enemies:
+  - Prefab: {fileID: 7151536348930845031, guid: d9d0c9e7edd17dd49a944208898fe8c3, type: 3}
   - Prefab: {fileID: 7151536348930845031, guid: d9d0c9e7edd17dd49a944208898fe8c3, type: 3}
   - Prefab: {fileID: 7151536348930845031, guid: d9d0c9e7edd17dd49a944208898fe8c3, type: 3}

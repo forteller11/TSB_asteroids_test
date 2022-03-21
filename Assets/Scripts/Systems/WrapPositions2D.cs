@@ -4,7 +4,6 @@ using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
 using UnityEngine;
-using Collider2D = Charly.Data.Collider2D;
 
 namespace Charly.Systems
 {
@@ -23,9 +22,9 @@ namespace Charly.Systems
             Entities.ForEach((Entity entity, ref Translation translation) =>
             {
                 float2 halfSize = float2.zero;
-                if (HasComponent<Collider2D>(entity))
+                if (HasComponent<ColliderData>(entity))
                 {
-                    var collider = GetComponent<Collider2D>(entity);
+                    var collider = GetComponent<ColliderData>(entity);
                     if (collider.Type == ColliderType.Circle)
                     {
                         halfSize = collider.Radius;
