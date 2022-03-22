@@ -33,12 +33,12 @@ I wanted to explore different patterns which allowed interdependent behaviours b
 ---
 
 #### Data Orientation and Performance
-In many ways my prototype is  **not** data oriented, for instance, my overlap system is far more generic than it has to be for an asteroids game, and it doesn't make use of chunk-based filtering that ECS lends itself to and that already comes for free  with some of the components that the renderer uses to cull objects. 
+In many ways my prototype is  **not** data oriented, for instance, my overlap system is far more generic than it has to be for an asteroids game, and it doesn't make use of chunk-based filtering that ECS lends itself to and that already comes for free  with some of the components that the renderer uses to cull objects. My algorithim is O(n-2)^2 and contains branches even in its tightest inner loops.
 
 ---
 #### Spawning System and Bugs
 Originally I started creating a more procedural system which would spawn entities based of weights which would change over time.
 
-I instead decided to try something more hand-authored and designer friendly, with pacing baked in. This lead the creation of a wave-based spawning method where designers would be able to hand pick what objects would be spawned in each wave. And it what order.
+I instead decided to try something more hand-authored and designer friendly, with pacing baked in. This lead to the creation of a wave-based spawning method where designers would be able to hand pick what objects would be spawned in each wave, and in what order.
 
 I tried  converting the serialized MonoBehaviours and ScriptableObjects to  both assetblobs, DynamicBuffers and FixedLists. Unfortunately the conversion process of these configs remained broken throughout development. 
