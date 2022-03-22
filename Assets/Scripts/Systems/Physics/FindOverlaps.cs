@@ -22,11 +22,11 @@ namespace Charly.Systems
 
         protected override void OnUpdate()
         {
-            var query = GetEntityQuery(
+            var potentialOverlapsQuery = GetEntityQuery(
                 ComponentType.ReadOnly<ColliderData>(), 
                 ComponentType.ReadOnly<LocalToWorld>());
             
-            var entities = query.ToEntityArrayAsync(Allocator.TempJob, out var entitiesJob);
+            var potentialOverlaps = potentialOverlapsQuery.ToEntityArrayAsync(Allocator.TempJob, out var entitiesJob);
             
             var collidersFromEntity = GetComponentDataFromEntity<ColliderData>(true);
             var ltwFromEntity = GetComponentDataFromEntity<LocalToWorld>(true);
@@ -38,7 +38,7 @@ namespace Charly.Systems
                 {
                     commandBufferConcurrent.SetBuffer<OverlapEventBuffer>(entityInQueryIndex, currentEntity);
                     
-                    foreach (var otherEntity in entities)
+                    foreach (var otherEntity in potentialOverlaps)
                     {
                         if (currentEntity == otherEntity)
                             continue;
@@ -79,8 +79,8 @@ namespace Charly.Systems
                 })
                 .WithReadOnly(collidersFromEntity)
                 .WithReadOnly(ltwFromEntity)
-                .WithDisposeOnCompletion(entities)
-                .WithNativeDisableParallelForRestriction(entities)
+                .WithDisposeOnCompletion(potentialOverlaps)
+                .WithNativeDisableParallelForRestriction(potentialOverlaps)
                 .ScheduleParallel(entitiesJob);
 
             _endSimulationECBSystem.AddJobHandleForProducer(Dependency);

@@ -118,7 +118,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Bullet: {fileID: 8804125953143366831, guid: e1c978362dd5bce45b9647c624be2f5f, type: 3}
-  VelocityMagnitude: 30
+  VelocityMagnitude: 20
 --- !u!1001 &7686195191627840613
 PrefabInstance:
   m_ObjectHideFlags: 0
