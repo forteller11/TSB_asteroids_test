@@ -19,7 +19,7 @@ namespace Charly.Data
         //Doesn't lose 1 bit of information like casting to (uint) would, as it would just ignore the signed bit.
         public static uint IntToUintLossless(int integer)
         {
-            return (uint) (integer + UInt32.MaxValue / 2);
+            return (uint) integer + (UInt32.MaxValue / 2);
         }
     }
 }
