@@ -22,9 +22,9 @@ With this in mind, I wanted to make sure that authoring components were reasonab
 ----
 
 #### Architecture in a DOTS game
-I wanted to explore different patterns which allowed interdependent behaviours be driven by decoupled systems. What does this look like in DOTS? Because of this I tried to use schedule() and ScheduleParralel() wherever possible, and avoid creating any unnecessary new sync points. This wasn't so much for performance reasons, but instead it was to uncover some of the challenges involved with writing code in multi-threaded, Burst compiled C# (HPC#).
+I wanted to explore different patterns which allowed interdependent behaviours be driven by decoupled systems. What does this look like in DOTS? Because of this I tried to use `Schedule()` and `ScheduleParralel()` wherever possible, and avoid creating any unnecessary new sync points. This wasn't so much for performance reasons, but instead it was to uncover some of the challenges involved with writing code in multi-threaded, Burst-compiled C# (HPC#).
 
-- I experimented with flags to signal data-oriented "events" with my overlap and destruction system. 
+- I experimented with flags to signal data-oriented "events" in my overlap and destruction systems. 
 
 - I experimented with decoupling the concept of "drivers" --> "launchers" --> "projectiles". 
 
@@ -33,12 +33,12 @@ I wanted to explore different patterns which allowed interdependent behaviours b
 ---
 
 #### Data Orientation and Performance
-In many ways my prototype is  **not** data oriented, for instance, my overlap system is far more generic than it has to be for an asteroids game, and it doesn't make use of chunk-based filtering that ECS lends itself to and that already comes for free  with some of the components that the renderer uses to cull objects. My algorithim is O(n-2)^2 and contains branches even in its tightest inner loops.
+In many ways my prototype is  **not** data oriented, for instance, my overlap system is far more generic than it has to be for an asteroids game, and it doesn't make use of chunk-based filtering that ECS lends itself to and that already comes for free  with some of the components that the renderer uses to cull objects. My algorithim is O(n-1)^2 and contains branches even in its tightest inner loops.
 
 ---
 #### Spawning System and Bugs
-Originally I started creating a more procedural system which would spawn entities based of weights which would change over time.
+Originally I started creating a more procedural system which would spawn entities based off weights which would change over time.
 
-I instead decided to try something more hand-authored and designer friendly, with pacing baked in. This lead to the creation of a wave-based spawning method where designers would be able to hand pick what objects would be spawned in each wave, and in what order.
+I instead decided to try something more hand-authored and designer friendly, with pacing baked-in. This lead to the creation of a wave-based spawning method where designers would be able to hand pick what objects would be spawned in each wave, and in what order.
 
-I tried  converting the serialized MonoBehaviours and ScriptableObjects to  both assetblobs, DynamicBuffers and FixedLists. Unfortunately the conversion process of these configs remained broken throughout development. 
+I tried  converting the serialized MonoBehaviours and ScriptableObjects to both AssetBlobs, DynamicBuffers and FixedLists. Unfortunately the conversion process of these configs remained broken throughout development. 
